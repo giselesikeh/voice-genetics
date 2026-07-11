@@ -1,0 +1,6 @@
+file_id,duration_seconds,expected_speakers,predicted_speakers,der_percent,speech_precision,speech_recall,speaker_accuracy_overlap,missed_speech_seconds,false_alarm_seconds,speaker_confusion_seconds,runtime_seconds
+afjiv,151.248,5,5,66.38,0.8371,0.5908,0.7638,51.6,14.5,17.6,220.2022
+akthc,114.521,2,2,3.29,0.9786,0.9887,1.0,1.2,2.3,0.0,170.1257
+ampme,148.32,3,3,6.07,0.9939,0.945,1.0,7.6,0.8,0.0,187.7298
+asxwr,237.767,3,3,3.6,0.9983,0.9996,0.9661,0.1,0.4,8.0,473.8963
+aufkn,181.488,3,2,9.14,0.9801,0.9752,0.952,4.4,3.5,8.3,291.5185

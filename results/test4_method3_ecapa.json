@@ -1,0 +1,295 @@
+{
+    "filename": "test4.m4a",
+    "quality_metrics": {
+        "duration_seconds": 57.791,
+        "sample_rate": 16000,
+        "rms_energy": 0.119307,
+        "peak_amplitude": 1.016756,
+        "clipping_rate": 1.6e-05
+    },
+    "preprocessing_metrics": {
+        "original_duration_seconds": 57.791,
+        "processed_duration_seconds": 57.599,
+        "removed_silence_seconds": 0.192,
+        "removed_silence_percentage": 0.33,
+        "trim_start_sample": 3072,
+        "trim_end_sample": 924651
+    },
+    "speaker_segmentation": {
+        "enabled": true,
+        "method": "ecapa_tdnn_speaker_embedding_clustering",
+        "message": "Speech chunks were grouped using ECAPA-TDNN speaker embeddings and K-Means clustering.",
+        "detected_speakers": 2,
+        "speaker_speech_duration_seconds": {
+            "speaker_1": 19.791,
+            "speaker_2": 38.0
+        },
+        "speaker_segment_count": {
+            "speaker_1": 7,
+            "speaker_2": 6
+        },
+        "overlap_warning": "not_checked_in_current_mvp",
+        "low_confidence_warning": false,
+        "speaker_segments": [
+            {
+                "speaker": "speaker_1",
+                "start": 0.0,
+                "end": 6.0,
+                "duration": 6.0,
+                "rms": 0.143466
+            },
+            {
+                "speaker": "speaker_2",
+                "start": 6.0,
+                "end": 16.0,
+                "duration": 10.0,
+                "rms": 0.112559
+            },
+            {
+                "speaker": "speaker_1",
+                "start": 16.0,
+                "end": 18.0,
+                "duration": 2.0,
+                "rms": 0.130432
+            },
+            {
+                "speaker": "speaker_2",
+                "start": 18.0,
+                "end": 22.0,
+                "duration": 4.0,
+                "rms": 0.118803
+            },
+            {
+                "speaker": "speaker_1",
+                "start": 22.0,
+                "end": 26.0,
+                "duration": 4.0,
+                "rms": 0.095379
+            },
+            {
+                "speaker": "speaker_2",
+                "start": 26.0,
+                "end": 40.0,
+                "duration": 14.0,
+                "rms": 0.156054
+            },
+            {
+                "speaker": "speaker_1",
+                "start": 40.0,
+                "end": 42.0,
+                "duration": 2.0,
+                "rms": 0.0929
+            },
+            {
+                "speaker": "speaker_2",
+                "start": 42.0,
+                "end": 44.0,
+                "duration": 2.0,
+                "rms": 0.083482
+            },
+            {
+                "speaker": "speaker_1",
+                "start": 44.0,
+                "end": 46.0,
+                "duration": 2.0,
+                "rms": 0.133963
+            },
+            {
+                "speaker": "speaker_2",
+                "start": 46.0,
+                "end": 52.0,
+                "duration": 6.0,
+                "rms": 0.122016
+            },
+            {
+                "speaker": "speaker_1",
+                "start": 52.0,
+                "end": 54.0,
+                "duration": 2.0,
+                "rms": 0.028239
+            },
+            {
+                "speaker": "speaker_2",
+                "start": 54.0,
+                "end": 56.0,
+                "duration": 2.0,
+                "rms": 0.134801
+            },
+            {
+                "speaker": "speaker_1",
+                "start": 56.0,
+                "end": 57.791,
+                "duration": 1.791,
+                "rms": 0.135008
+            }
+        ],
+        "chunk_duration_seconds": 2.0,
+        "expected_speakers": 2,
+        "usable_speech_chunks": 29,
+        "removed_pause_chunks": 0,
+        "removed_pause_segments": [],
+        "audio_duration_seconds": 57.791,
+        "embedding_model": "speechbrain/spkrec-ecapa-voxceleb",
+        "embedding_type": "ECAPA-TDNN speaker embedding"
+    },
+    "features": {
+        "duration_seconds": 57.599,
+        "mfcc": {
+            "mean": [
+                -229.1189727783203,
+                52.179588317871094,
+                11.918089866638184,
+                -12.818719863891602,
+                -21.09004020690918,
+                -7.828579902648926,
+                -36.29240036010742,
+                -15.991259574890137,
+                -11.02534008026123,
+                11.960860252380371,
+                2.6775801181793213,
+                -8.18729019165039,
+                -3.587470054626465
+            ],
+            "std": [
+                92.97705078125,
+                48.88473892211914,
+                33.04481887817383,
+                23.220060348510742,
+                21.784109115600586,
+                18.093259811401367,
+                18.045080184936523,
+                11.907090187072754,
+                11.219440460205078,
+                11.45734977722168,
+                9.209790229797363,
+                9.269729614257812,
+                8.731289863586426
+            ]
+        },
+        "spectral_centroid": {
+            "mean": 2543.76064,
+            "std": 1251.99929
+        },
+        "pitch": {
+            "mean_hz": 269.491,
+            "min_hz": 71.326,
+            "max_hz": 840.261
+        }
+    },
+    "speaker_features": {
+        "speaker_1": {
+            "preprocessing_metrics": {
+                "original_duration_seconds": 19.791,
+                "processed_duration_seconds": 19.599,
+                "removed_silence_seconds": 0.192,
+                "removed_silence_percentage": 0.97,
+                "trim_start_sample": 3072,
+                "trim_end_sample": 316651
+            },
+            "features": {
+                "duration_seconds": 19.599,
+                "mfcc": {
+                    "mean": [
+                        -238.16412353515625,
+                        54.762779235839844,
+                        16.486679077148438,
+                        -11.579879760742188,
+                        -16.575420379638672,
+                        -6.969540119171143,
+                        -35.32487869262695,
+                        -17.51889991760254,
+                        -8.532930374145508,
+                        11.383620262145996,
+                        2.0366299152374268,
+                        -7.335299968719482,
+                        -2.1768200397491455
+                    ],
+                    "std": [
+                        84.60865783691406,
+                        50.23929977416992,
+                        32.96773910522461,
+                        24.178260803222656,
+                        19.153539657592773,
+                        17.625890731811523,
+                        16.529619216918945,
+                        12.523159980773926,
+                        11.11166000366211,
+                        10.072919845581055,
+                        9.607060432434082,
+                        9.496299743652344,
+                        9.188750267028809
+                    ]
+                },
+                "spectral_centroid": {
+                    "mean": 2588.00786,
+                    "std": 1354.10606
+                },
+                "pitch": {
+                    "mean_hz": 285.717,
+                    "min_hz": 71.326,
+                    "max_hz": 840.261
+                }
+            }
+        },
+        "speaker_2": {
+            "preprocessing_metrics": {
+                "original_duration_seconds": 38.0,
+                "processed_duration_seconds": 37.888,
+                "removed_silence_seconds": 0.112,
+                "removed_silence_percentage": 0.29,
+                "trim_start_sample": 0,
+                "trim_end_sample": 606208
+            },
+            "features": {
+                "duration_seconds": 37.888,
+                "mfcc": {
+                    "mean": [
+                        -223.60638427734375,
+                        52.07963943481445,
+                        9.444069862365723,
+                        -13.358619689941406,
+                        -23.40597915649414,
+                        -8.03322982788086,
+                        -36.841121673583984,
+                        -15.08508014678955,
+                        -12.465700149536133,
+                        12.234999656677246,
+                        2.957819938659668,
+                        -8.559690475463867,
+                        -4.255239963531494
+                    ],
+                    "std": [
+                        97.91729736328125,
+                        48.36981964111328,
+                        32.79465866088867,
+                        22.653350830078125,
+                        22.6872501373291,
+                        18.17477035522461,
+                        18.64327049255371,
+                        11.506999969482422,
+                        11.01791000366211,
+                        12.092439651489258,
+                        8.979920387268066,
+                        9.028949737548828,
+                        8.372349739074707
+                    ]
+                },
+                "spectral_centroid": {
+                    "mean": 2512.09326,
+                    "std": 1191.41457
+                },
+                "pitch": {
+                    "mean_hz": 249.969,
+                    "min_hz": 65.406,
+                    "max_hz": 727.276
+                }
+            }
+        }
+    },
+    "warnings": [],
+    "privacy_status": {
+        "raw_audio_stored": false,
+        "temporary_files_deleted": true,
+        "output_contains_raw_audio": false
+    }
+}

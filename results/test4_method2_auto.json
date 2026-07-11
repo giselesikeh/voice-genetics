@@ -1,0 +1,286 @@
+{
+    "filename": "test4.m4a",
+    "quality_metrics": {
+        "duration_seconds": 57.791,
+        "sample_rate": 16000,
+        "rms_energy": 0.119307,
+        "peak_amplitude": 1.016756,
+        "clipping_rate": 1.6e-05
+    },
+    "preprocessing_metrics": {
+        "original_duration_seconds": 57.791,
+        "processed_duration_seconds": 57.599,
+        "removed_silence_seconds": 0.192,
+        "removed_silence_percentage": 0.33,
+        "trim_start_sample": 3072,
+        "trim_end_sample": 924651
+    },
+    "speaker_segmentation": {
+        "enabled": true,
+        "method": "vad_simple_speaker_clustering",
+        "message": "Speech chunks were automatically grouped using VAD-style RMS filtering and K-Means clustering.",
+        "detected_speakers": 2,
+        "speaker_speech_duration_seconds": {
+            "speaker_1": 32.0,
+            "speaker_2": 25.791
+        },
+        "speaker_segment_count": {
+            "speaker_1": 6,
+            "speaker_2": 6
+        },
+        "overlap_warning": "not_checked_in_current_mvp",
+        "low_confidence_warning": false,
+        "speaker_segments": [
+            {
+                "speaker": "speaker_1",
+                "start": 0.0,
+                "end": 2.0,
+                "duration": 2.0,
+                "rms": 0.136058
+            },
+            {
+                "speaker": "speaker_2",
+                "start": 2.0,
+                "end": 8.0,
+                "duration": 6.0,
+                "rms": 0.111113
+            },
+            {
+                "speaker": "speaker_1",
+                "start": 8.0,
+                "end": 14.0,
+                "duration": 6.0,
+                "rms": 0.084743
+            },
+            {
+                "speaker": "speaker_2",
+                "start": 14.0,
+                "end": 16.0,
+                "duration": 2.0,
+                "rms": 0.136203
+            },
+            {
+                "speaker": "speaker_1",
+                "start": 16.0,
+                "end": 24.0,
+                "duration": 8.0,
+                "rms": 0.094526
+            },
+            {
+                "speaker": "speaker_2",
+                "start": 24.0,
+                "end": 26.0,
+                "duration": 2.0,
+                "rms": 0.123284
+            },
+            {
+                "speaker": "speaker_1",
+                "start": 26.0,
+                "end": 34.0,
+                "duration": 8.0,
+                "rms": 0.119532
+            },
+            {
+                "speaker": "speaker_2",
+                "start": 34.0,
+                "end": 42.0,
+                "duration": 8.0,
+                "rms": 0.125271
+            },
+            {
+                "speaker": "speaker_1",
+                "start": 42.0,
+                "end": 48.0,
+                "duration": 6.0,
+                "rms": 0.098395
+            },
+            {
+                "speaker": "speaker_2",
+                "start": 48.0,
+                "end": 52.0,
+                "duration": 4.0,
+                "rms": 0.138551
+            },
+            {
+                "speaker": "speaker_1",
+                "start": 52.0,
+                "end": 54.0,
+                "duration": 2.0,
+                "rms": 0.028239
+            },
+            {
+                "speaker": "speaker_2",
+                "start": 54.0,
+                "end": 57.791,
+                "duration": 3.791,
+                "rms": 0.134904
+            }
+        ],
+        "chunk_duration_seconds": 2.0,
+        "expected_speakers": 2,
+        "usable_speech_chunks": 29,
+        "removed_pause_chunks": 0,
+        "removed_pause_segments": [],
+        "audio_duration_seconds": 57.791
+    },
+    "features": {
+        "duration_seconds": 57.599,
+        "mfcc": {
+            "mean": [
+                -229.1189727783203,
+                52.179588317871094,
+                11.918089866638184,
+                -12.818719863891602,
+                -21.09004020690918,
+                -7.828579902648926,
+                -36.29240036010742,
+                -15.991259574890137,
+                -11.02534008026123,
+                11.960860252380371,
+                2.6775801181793213,
+                -8.18729019165039,
+                -3.587470054626465
+            ],
+            "std": [
+                92.97705078125,
+                48.88473892211914,
+                33.04481887817383,
+                23.220060348510742,
+                21.784109115600586,
+                18.093259811401367,
+                18.045080184936523,
+                11.907090187072754,
+                11.219440460205078,
+                11.45734977722168,
+                9.209790229797363,
+                9.269729614257812,
+                8.731289863586426
+            ]
+        },
+        "spectral_centroid": {
+            "mean": 2543.76064,
+            "std": 1251.99929
+        },
+        "pitch": {
+            "mean_hz": 269.491,
+            "min_hz": 71.326,
+            "max_hz": 840.261
+        }
+    },
+    "speaker_features": {
+        "speaker_1": {
+            "preprocessing_metrics": {
+                "original_duration_seconds": 32.0,
+                "processed_duration_seconds": 31.52,
+                "removed_silence_seconds": 0.48,
+                "removed_silence_percentage": 1.5,
+                "trim_start_sample": 3072,
+                "trim_end_sample": 507392
+            },
+            "features": {
+                "duration_seconds": 31.52,
+                "mfcc": {
+                    "mean": [
+                        -227.21434020996094,
+                        37.63447189331055,
+                        16.85887908935547,
+                        -10.315750122070312,
+                        -19.188180923461914,
+                        -0.8273100256919861,
+                        -36.56010818481445,
+                        -13.332500457763672,
+                        -10.037150382995605,
+                        12.054759979248047,
+                        3.6113600730895996,
+                        -8.853320121765137,
+                        -3.6171600818634033
+                    ],
+                    "std": [
+                        101.09130096435547,
+                        47.64731979370117,
+                        29.437469482421875,
+                        22.202129364013672,
+                        20.68787956237793,
+                        14.612119674682617,
+                        18.195629119873047,
+                        11.264909744262695,
+                        10.672100067138672,
+                        10.54757022857666,
+                        8.658989906311035,
+                        8.776519775390625,
+                        7.45989990234375
+                    ]
+                },
+                "spectral_centroid": {
+                    "mean": 2906.77756,
+                    "std": 1191.41938
+                },
+                "pitch": {
+                    "mean_hz": 262.58,
+                    "min_hz": 71.326,
+                    "max_hz": 802.316
+                }
+            }
+        },
+        "speaker_2": {
+            "preprocessing_metrics": {
+                "original_duration_seconds": 25.791,
+                "processed_duration_seconds": 25.791,
+                "removed_silence_seconds": 0.0,
+                "removed_silence_percentage": 0.0,
+                "trim_start_sample": 0,
+                "trim_end_sample": 412651
+            },
+            "features": {
+                "duration_seconds": 25.791,
+                "mfcc": {
+                    "mean": [
+                        -230.25918579101562,
+                        70.74447631835938,
+                        5.6546101570129395,
+                        -15.861359596252441,
+                        -23.618179321289062,
+                        -16.244260787963867,
+                        -36.21723175048828,
+                        -19.10725975036621,
+                        -12.406200408935547,
+                        11.804490089416504,
+                        1.4100099802017212,
+                        -7.269820213317871,
+                        -3.4848899841308594
+                    ],
+                    "std": [
+                        84.81124114990234,
+                        44.61289978027344,
+                        35.94524002075195,
+                        24.00741958618164,
+                        22.74374008178711,
+                        18.356969833374023,
+                        17.694570541381836,
+                        12.032560348510742,
+                        11.624640464782715,
+                        12.543319702148438,
+                        9.742119789123535,
+                        9.711569786071777,
+                        10.059820175170898
+                    ]
+                },
+                "spectral_centroid": {
+                    "mean": 2103.94814,
+                    "std": 1191.31295
+                },
+                "pitch": {
+                    "mean_hz": 275.535,
+                    "min_hz": 71.326,
+                    "max_hz": 727.276
+                }
+            }
+        }
+    },
+    "warnings": [],
+    "privacy_status": {
+        "raw_audio_stored": false,
+        "temporary_files_deleted": true,
+        "output_contains_raw_audio": false
+    }
+}

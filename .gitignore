@@ -1,31 +1,49 @@
+# Python
 __pycache__/
 *.pyc
 .venv/
 venv/
 env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 
+# Editors / OS
 .vscode/
 .idea/
 .DS_Store
 Thumbs.db
 
+# Local environments
+backend/.venv/
+frontend/.venv/
+
+# Large/private datasets
 data/raw/
 data/processed/
 data/voxconverse_hf/
 data/voxconverse_kaggle/
+data/voxconverse*/
 
+# Large model files
 backend/pretrained_models/
 pretrained_models/
-
-*.zip
-*.tar
-*.tar.gz
 *.pt
 *.pth
 *.ckpt
 *.bin
 *.safetensors
 
-reports/voxconverse_tests/
-reports/voxconverse_kaggle/
-reports/voxconverse_kaggle_adaptive/
+# Archives
+*.zip
+*.tar
+*.tar.gz
+
+# Temporary logs
+*.log
+tmp/
+temp/
+
+# Local Streamlit secrets
+frontend/.streamlit/secrets.toml
+.streamlit/secrets.toml
