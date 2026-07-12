@@ -4,9 +4,9 @@ from components.sidebar import render_sidebar
 from components.upload_panel import render_upload_panel
 from components.results_view import render_results
 from services.api_client import (
+    VoiceGeneticsAPIError,
     check_health,
     extract_audio_features,
-    VoiceGeneticsAPIError,
 )
 
 
@@ -19,13 +19,15 @@ st.set_page_config(
 
 def main() -> None:
     st.title("🎙️ Voice Genetics")
-    st.caption("Acoustic Feature Extraction and Baseline Speaker Segmentation MVP")
+    st.caption("Acoustic Feature Extraction and Speaker Segmentation System")
 
     st.markdown(
         """
-        This Streamlit frontend connects to the Voice Genetics FastAPI backend.
-        Upload an audio sample, select a processing method, and view the returned
-        acoustic features, speaker segmentation output, and privacy status.
+        Voice Genetics is a privacy-aware acoustic feature extraction system.
+        Upload a supported audio sample, select a processing method, and view
+        quality metrics, preprocessing information, acoustic features, speaker
+        segmentation output, clustering metrics, diarization evaluation, runtime
+        metrics, and privacy status.
         """
     )
 
@@ -59,8 +61,9 @@ def main() -> None:
 
     with col2:
         st.caption(
-            "For Review/Midterm demo: use Method 2 (`auto`) or Method 4 (`wavlm`). "
-            "WavLM can take longer because it loads a pretrained speech model."
+            "Supported formats: WAV, MP3, M4A. Recommended for Review Session 4: "
+            "Method 3B (`ecapa_v2`) with adaptive VAD, overlapping chunks, smoothing, "
+            "clustering metrics, and optional speaker-count estimation."
         )
 
     if run_button:
@@ -83,6 +86,21 @@ def main() -> None:
                         "vad_min_region_duration_seconds"
                     ],
                     vad_merge_gap_seconds=settings["vad_merge_gap_seconds"],
+                    ecapa_chunk_hop_seconds=settings["ecapa_chunk_hop_seconds"],
+                    ecapa_smoothing_passes=settings["ecapa_smoothing_passes"],
+                    ecapa_auto_detect_speakers=settings[
+                        "ecapa_auto_detect_speakers"
+                    ],
+                    ecapa_min_speakers=settings["ecapa_min_speakers"],
+                    ecapa_max_speakers=settings["ecapa_max_speakers"],
+                    ecapa_min_segment_duration_seconds=settings[
+                        "ecapa_min_segment_duration_seconds"
+                    ],
+                    ecapa_merge_gap_seconds=settings["ecapa_merge_gap_seconds"],
+                    ecapa_clustering_backend=settings["ecapa_clustering_backend"],
+                    use_pyannote_metrics=settings["use_pyannote_metrics"],
+                    der_collar_seconds=settings["der_collar_seconds"],
+                    der_skip_overlap=settings["der_skip_overlap"],
                     segments_json=segments_json,
                     reference_segments_json=reference_segments_json,
                 )

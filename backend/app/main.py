@@ -31,21 +31,20 @@ openapi_tags = [
     },
     {
         "name": "Acoustic Analysis",
-        "description": "Upload audio or video files and extract acoustic and speaker-level features.",
+        "description": "Upload audio files and extract acoustic and speaker-level features.",
     },
 ]
-
 
 app = FastAPI(
     title="Voice Genetics Acoustic Feature Extraction API",
     description=(
         "Privacy-compliant acoustic feature extraction API. "
-        "The API accepts voice/audio files, and can also accept video files "
-        "when the audio track is available. It returns quality metrics, "
-        "voice activity information, acoustic features, optional speaker segmentation, "
-        "speaker-level features, diarization evaluation metrics, warnings, and privacy status."
+        "The API accepts WAV, MP3, and M4A voice/audio files. "
+        "It returns quality metrics, voice activity information, acoustic features, "
+        "optional speaker segmentation, speaker-level features, diarization evaluation "
+        "metrics, warnings, and privacy status."
     ),
-    version="0.10.0",
+    version="0.11.0",
     openapi_tags=openapi_tags,
     docs_url="/docs",
     redoc_url="/redoc",
@@ -67,7 +66,7 @@ def health_check():
     return {
         "status": "ok",
         "service": "voice-genetics-api",
-        "version": "0.10.0",
+        "version": "0.11.0",
         "message": "Voice Genetics API is running",
     }
 
@@ -75,19 +74,13 @@ def health_check():
 def _clean_optional_json_text(value: Optional[str]) -> str:
     if value is None:
         return ""
-
     cleaned = value.strip()
-
     if cleaned.lower() in {"", "string", "none", "null"}:
         return ""
-
     return cleaned
 
 
-def _extract_features_for_speakers(
-    speaker_audio_segments,
-    sample_rate: int,
-):
+def _extract_features_for_speakers(speaker_audio_segments, sample_rate: int):
     speaker_features = {}
 
     for speaker, speaker_audio in speaker_audio_segments.items():
@@ -95,16 +88,12 @@ def _extract_features_for_speakers(
             speaker_audio,
             sample_rate,
         )
-
         if len(trimmed_speaker_audio) == 0:
             trimmed_speaker_audio = np.asarray(speaker_audio, dtype=np.float32)
 
         speaker_features[speaker] = {
             "preprocessing_metrics": speaker_preprocessing,
-            "features": extract_basic_features(
-                trimmed_speaker_audio,
-                sample_rate,
-            ),
+            "features": extract_basic_features(trimmed_speaker_audio, sample_rate),
         }
 
     return speaker_features
@@ -126,30 +115,27 @@ def _empty_evaluation_status(message: str = "No reference_segments_json was prov
 async def extract_features(
     file: UploadFile = File(
         ...,
-        description=(
-            "Upload a .wav, .mp3, .m4a, .mp4, or .mov file. "
-            "For video files, only the audio track is processed."
-        ),
+        description="Upload a .wav, .mp3, or .m4a audio file.",
     ),
     segments_json: Optional[str] = Form(
         default=None,
         description=(
-            "Manual speaker segments as a JSON list. "
-            "If provided, this overrides segmentation_method and runs Method 1 manual segmentation."
+            "Manual speaker segments as a JSON list. If provided, this overrides "
+            "segmentation_method and runs Method 1 manual segmentation."
         ),
     ),
     reference_segments_json: Optional[str] = Form(
         default=None,
         description=(
-            "Manual reference speaker segments as a JSON list for evaluation only. "
-            "This does NOT override automatic segmentation."
+            "Manual/RTTM-derived reference speaker segments as a JSON list for "
+            "evaluation only. This does NOT override automatic segmentation."
         ),
     ),
     segmentation_method: Optional[str] = Form(
         default="none",
         description=(
             "Speaker segmentation method: none, auto, ecapa, ecapa_v2, or wavlm. "
-            "Use ecapa_v2 for the improved full-pipeline diarization method."
+            "Use ecapa_v2 for Method 3B, the improved full-pipeline diarization method."
         ),
     ),
     expected_speakers: int = Form(
@@ -179,13 +165,13 @@ async def extract_features(
         ge=0.0,
         le=1.0,
         description=(
-            "Requested central VAD minimum RMS. "
-            "In adaptive mode, quiet recordings may use a lower effective_min_rms."
+            "Requested central VAD minimum RMS. In adaptive mode, quiet recordings "
+            "may use a lower effective_min_rms."
         ),
     ),
     vad_min_region_duration_seconds: float = Form(
         default=0.25,
-        ge=0.1,
+        ge=0.05,
         le=5.0,
         description="Minimum duration for a speech-like region.",
     ),
@@ -200,21 +186,70 @@ async def extract_features(
         ge=0.25,
         le=10.0,
         description=(
-            "Hop size for ecapa_v2 overlapping chunks. "
-            "If empty, it defaults to half of chunk_duration_seconds."
+            "Hop size for ecapa_v2 overlapping chunks. If empty, it defaults to half "
+            "of chunk_duration_seconds."
         ),
     ),
     ecapa_smoothing_passes: int = Form(
         default=1,
         ge=0,
-        le=5,
+        le=10,
         description="Number of isolated-label smoothing passes for ecapa_v2.",
+    ),
+    ecapa_auto_detect_speakers: bool = Form(
+        default=False,
+        description=(
+            "If true for ecapa_v2, estimate speaker count using silhouette, cluster "
+            "balance, and smoothness over K candidates."
+        ),
+    ),
+    ecapa_min_speakers: int = Form(
+        default=2,
+        ge=1,
+        le=10,
+        description="Minimum K to test when ecapa_auto_detect_speakers is true.",
+    ),
+    ecapa_max_speakers: int = Form(
+        default=6,
+        ge=2,
+        le=10,
+        description="Maximum K to test when ecapa_auto_detect_speakers is true.",
+    ),
+    ecapa_min_segment_duration_seconds: float = Form(
+        default=1.0,
+        ge=0.0,
+        le=5.0,
+        description="Minimum final segment duration for Method 3B short-segment merging.",
+    ),
+    ecapa_merge_gap_seconds: float = Form(
+        default=0.3,
+        ge=0.0,
+        le=3.0,
+        description="Merge same-speaker ECAPA V2 segments separated by gaps shorter than this value.",
+    ),
+    ecapa_clustering_backend: str = Form(
+        default="agglomerative_cosine",
+        description="ecapa_v2 clustering backend: agglomerative_cosine or kmeans.",
     ),
     evaluation_frame_step_seconds: float = Form(
         default=0.1,
         ge=0.01,
         le=1.0,
-        description="Frame step used for diarization evaluation metrics.",
+        description="Frame step used for internal diarization evaluation metrics.",
+    ),
+    use_pyannote_metrics: bool = Form(
+        default=False,
+        description="Try standard DER using pyannote.metrics if installed.",
+    ),
+    der_collar_seconds: float = Form(
+        default=0.25,
+        ge=0.0,
+        le=2.0,
+        description="Collar value for optional pyannote.metrics DER.",
+    ),
+    der_skip_overlap: bool = Form(
+        default=False,
+        description="Skip overlapping speech in optional pyannote.metrics DER.",
     ),
 ):
     request_start_time = time.perf_counter()
@@ -222,13 +257,11 @@ async def extract_features(
     evaluation_processing_seconds = 0.0
 
     audio, sample_rate, loading_warnings = await load_audio_file(file)
-
     audio_duration_seconds = len(audio) / sample_rate
 
     quality_metrics, quality_warnings = compute_quality_metrics(audio, sample_rate)
 
     normalized_vad_mode = (vad_mode or "adaptive").strip().lower()
-
     if normalized_vad_mode not in {"adaptive", "fixed"}:
         raise HTTPException(
             status_code=400,
@@ -236,7 +269,6 @@ async def extract_features(
         )
 
     adaptive_vad_enabled = normalized_vad_mode == "adaptive"
-
     voice_activity = detect_speech_regions(
         audio=audio,
         sample_rate=sample_rate,
@@ -248,7 +280,6 @@ async def extract_features(
     )
 
     speech_regions = voice_activity.get("speech_regions", [])
-
     effective_vad_min_rms = float(
         voice_activity.get(
             "effective_min_rms",
@@ -257,36 +288,27 @@ async def extract_features(
     )
 
     if speech_regions:
-        speech_only_audio = concatenate_speech_regions(
-            audio,
-            sample_rate,
-            speech_regions,
-        )
+        speech_only_audio = concatenate_speech_regions(audio, sample_rate, speech_regions)
     else:
         speech_only_audio = np.array([], dtype=np.float32)
 
     if len(speech_only_audio) == 0:
         speech_only_audio = audio
         voice_activity["warning"] = (
-            "No speech-only audio could be created, so global features were extracted from the full decoded audio."
+            "No speech-only audio could be created, so global features were extracted "
+            "from the full decoded audio."
         )
 
-    processed_audio, preprocessing_metrics = remove_silence(
-        speech_only_audio,
-        sample_rate,
-    )
-
+    processed_audio, preprocessing_metrics = remove_silence(speech_only_audio, sample_rate)
     if len(processed_audio) == 0:
         processed_audio = speech_only_audio
 
     features = extract_basic_features(processed_audio, sample_rate)
-
     warnings = loading_warnings + quality_warnings
 
     speaker_status = speaker_segmentation_placeholder()
     speaker_features = {}
     diarization_evaluation = _empty_evaluation_status()
-
     predicted_segments_for_evaluation = []
 
     method = (segmentation_method or "none").strip().lower()
@@ -298,7 +320,6 @@ async def extract_features(
 
         if manual_segments_text:
             manual_segments = json.loads(manual_segments_text)
-
             if not isinstance(manual_segments, list):
                 raise ValueError("segments_json must be a list of speaker segments.")
 
@@ -306,13 +327,11 @@ async def extract_features(
                 manual_segments,
                 audio_duration_seconds,
             )
-
             speaker_audio_segments = extract_speaker_audio_segments(
                 audio,
                 sample_rate,
                 validated_segments,
             )
-
             speaker_status = compute_speaker_segmentation_summary(
                 validated_segments,
                 method_name="manual_speaker_labels",
@@ -321,19 +340,16 @@ async def extract_features(
                     "No automatic speaker diarization method was used."
                 ),
             )
-
             speaker_status["manual_segments_override"] = True
             speaker_status["requested_segmentation_method"] = method
             speaker_status["important_note"] = (
                 "Because segments_json was provided, the API used manual timestamps. "
                 "This result must not be reported as automatic ECAPA/WavLM diarization."
             )
-
             speaker_features = _extract_features_for_speakers(
                 speaker_audio_segments,
                 sample_rate,
             )
-
             predicted_segments_for_evaluation = validated_segments
 
         elif method == "auto":
@@ -345,18 +361,15 @@ async def extract_features(
                 min_rms=effective_vad_min_rms,
                 speech_regions=speech_regions,
             )
-
             speaker_audio_segments = extract_speaker_audio_segments(
                 audio,
                 sample_rate,
                 automatic_segments,
             )
-
             speaker_features = _extract_features_for_speakers(
                 speaker_audio_segments,
                 sample_rate,
             )
-
             predicted_segments_for_evaluation = automatic_segments
 
         elif method == "ecapa":
@@ -368,18 +381,15 @@ async def extract_features(
                 min_rms=effective_vad_min_rms,
                 speech_regions=speech_regions,
             )
-
             speaker_audio_segments = extract_speaker_audio_segments(
                 audio,
                 sample_rate,
                 ecapa_segments,
             )
-
             speaker_features = _extract_features_for_speakers(
                 speaker_audio_segments,
                 sample_rate,
             )
-
             predicted_segments_for_evaluation = ecapa_segments
 
         elif method == "ecapa_v2":
@@ -392,19 +402,22 @@ async def extract_features(
                 min_rms=effective_vad_min_rms,
                 speech_regions=speech_regions,
                 smoothing_passes=ecapa_smoothing_passes,
+                auto_detect_speakers=ecapa_auto_detect_speakers,
+                min_speakers=ecapa_min_speakers,
+                max_speakers=ecapa_max_speakers,
+                min_segment_duration_seconds=ecapa_min_segment_duration_seconds,
+                merge_gap_seconds=ecapa_merge_gap_seconds,
+                clustering_backend=ecapa_clustering_backend,
             )
-
             speaker_audio_segments = extract_speaker_audio_segments(
                 audio,
                 sample_rate,
                 ecapa_v2_segments,
             )
-
             speaker_features = _extract_features_for_speakers(
                 speaker_audio_segments,
                 sample_rate,
             )
-
             predicted_segments_for_evaluation = ecapa_v2_segments
 
         elif method == "wavlm":
@@ -416,32 +429,25 @@ async def extract_features(
                 min_rms=effective_vad_min_rms,
                 speech_regions=speech_regions,
             )
-
             speaker_audio_segments = extract_speaker_audio_segments(
                 audio,
                 sample_rate,
                 wavlm_segments,
             )
-
             speaker_features = _extract_features_for_speakers(
                 speaker_audio_segments,
                 sample_rate,
             )
-
             predicted_segments_for_evaluation = wavlm_segments
 
         elif method not in ["none", ""]:
-            raise ValueError(
-                "Unknown segmentation_method. Use one of: none, auto, ecapa, ecapa_v2, wavlm."
-            )
+            raise ValueError("Unknown segmentation_method. Use one of: none, auto, ecapa, ecapa_v2, wavlm.")
 
         speaker_processing_seconds = time.perf_counter() - speaker_start_time
 
         if reference_segments_text:
             evaluation_start_time = time.perf_counter()
-
             reference_segments = json.loads(reference_segments_text)
-
             if not isinstance(reference_segments, list):
                 raise ValueError("reference_segments_json must be a list of speaker segments.")
 
@@ -460,6 +466,9 @@ async def extract_features(
                     predicted_segments=predicted_segments_for_evaluation,
                     audio_duration_seconds=audio_duration_seconds,
                     frame_step_seconds=evaluation_frame_step_seconds,
+                    use_pyannote_metrics=use_pyannote_metrics,
+                    collar_seconds=der_collar_seconds,
+                    skip_overlap=der_skip_overlap,
                 )
 
             evaluation_processing_seconds = time.perf_counter() - evaluation_start_time
@@ -469,18 +478,14 @@ async def extract_features(
             status_code=400,
             detail=(
                 "segments_json or reference_segments_json is not valid JSON. "
-                "Leave segments_json empty for automatic methods and use reference_segments_json only for scoring."
+                "Leave segments_json empty for automatic methods and use "
+                "reference_segments_json only for scoring."
             ),
         ) from exc
-
     except ValueError as exc:
-        raise HTTPException(
-            status_code=400,
-            detail=str(exc),
-        )
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
 
     total_processing_seconds = time.perf_counter() - request_start_time
-
     runtime_metrics = {
         "total_processing_seconds": round(total_processing_seconds, 4),
         "speaker_processing_seconds": round(speaker_processing_seconds, 4),
