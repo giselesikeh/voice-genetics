@@ -1,0 +1,62 @@
+.git/
+.gitignore
+
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+.venv/
+venv/
+.venv-reference/
+backend/.venv/
+frontend/.venv/
+
+.env
+.env.*
+
+.cache/
+.huggingface/
+.torch/
+**/.cache/
+**/huggingface/
+**/torch/
+
+# Exclude pretrained/downloaded model folders
+backend/pretrained_models/
+pretrained_models/
+
+# Exclude all datasets and raw audio
+data/
+*.wav
+*.mp3
+*.m4a
+*.mp4
+*.mov
+*.flac
+
+# Exclude large results/report folders
+results/
+reports/
+backups/
+*.zip
+*.rar
+*.7z
+
+# Exclude notebooks/checkpoints/models
+*.ipynb
+*.pt
+*.pth
+*.ckpt
+*.bin
+*.onnx
+*.safetensors
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

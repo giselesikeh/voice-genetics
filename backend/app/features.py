@@ -1,4 +1,5 @@
 
+from app.advanced_features import extract_advanced_acoustic_features
 from typing import Any, Dict, Optional
 
 import librosa
@@ -60,6 +61,8 @@ def extract_basic_features(audio: np.ndarray, sample_rate: int) -> Dict[str, Any
             "min_hz": _safe_round(pitch_min, 3),
             "max_hz": _safe_round(pitch_max, 3),
         },
+        
     }
+    features["advanced_acoustic_features"] = extract_advanced_acoustic_features(audio, sample_rate)
 
     return features
