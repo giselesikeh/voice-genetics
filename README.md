@@ -1,68 +1,126 @@
-# Voice Genetics: Acoustic Feature Extraction and Speaker Segmentation System
+# Voice Genetics: Privacy-Aware Acoustic Feature Extraction and Speaker Diarization System
 
-Voice Genetics is a privacy-aware acoustic feature extraction and speaker segmentation system. It accepts supported audio recordings, validates audio quality, preprocesses the signal, performs voice activity detection, extracts numerical acoustic features, optionally performs speaker segmentation/diarization, and returns structured JSON output.
+Voice Genetics is a privacy-aware audio processing system that accepts voice recordings, validates audio quality, preprocesses the signal, detects speech regions, extracts numerical acoustic features, optionally performs speaker diarization, evaluates diarization when reference labels are available, and returns a structured JSON response.
 
-The system does **not** predict genes directly. Instead, it prepares standardized acoustic and speaker-level features that may later support research on possible relationships between vocal traits and genetic markers.
+The system does **not** predict genes directly. Instead, it prepares standardized acoustic and speaker-level numerical features that may later support research on possible relationships between vocal traits and genetic markers.
 
 ---
 
 ## Project Links
 
-* GitHub repository: `https://github.com/giselesikeh/voice-genetics`
-* Live Hugging Face Space: `https://gisele-voice-genetics.hf.space`
+- GitHub repository: `https://github.com/giselesikeh/voice-genetics`
+- Live Hugging Face Space: `https://gisele-voice-genetics.hf.space`
 
 ---
 
-## Current Implementation Status
+## Team Members
+
+- Sikeh Gisele Wiykiynyuy
+- Tivdzua Lubem Noah
+
+---
+
+## Course
+
+Software System Development Using State-of-the-Art Artificial Intelligence Technologies
+
+---
+
+## Product Overview
+
+The product is an end-to-end acoustic feature extraction and speaker segmentation pipeline.
+
+The user uploads an audio file through either:
+
+1. the FastAPI backend, or
+2. the Streamlit frontend.
+
+The system then:
+
+```text
+audio upload
+    ↓
+file validation
+    ↓
+audio decoding
+    ↓
+mono conversion
+    ↓
+16 kHz resampling
+    ↓
+quality analysis
+    ↓
+adaptive voice activity detection
+    ↓
+acoustic feature extraction
+    ↓
+optional speaker diarization
+    ↓
+optional diarization evaluation
+    ↓
+privacy-safe JSON output
+```
+
+The output is a JSON object containing numerical acoustic features, quality metrics, diarization results, evaluation metrics, runtime metrics, and privacy information.
+
+---
+
+## Expected Functionality
+
+The final system is expected to:
+
+- accept common audio recordings;
+- support `.wav`, `.mp3`, and `.m4a`;
+- reject unsupported formats;
+- validate audio quality;
+- preprocess audio by converting to mono and resampling to 16 kHz;
+- detect speech and non-speech regions;
+- remove silence and pauses where appropriate;
+- extract global acoustic features;
+- extract speaker-level acoustic features;
+- support manual speaker segmentation;
+- support automatic speaker diarization;
+- evaluate diarization using reference speaker annotations;
+- return structured JSON output;
+- avoid permanent storage of raw uploaded audio;
+- provide a frontend user interface;
+- handle incorrect or unexpected user inputs.
+
+---
+
+## Implemented Functionality
 
 The current implementation includes:
 
-* FastAPI backend
-* Streamlit frontend
-* `/health` endpoint
-* `/extract` endpoint
-* browser-based audio upload
-* supported audio formats: `.wav`, `.mp3`, `.m4a`
-* rejection of unsupported formats
-* audio decoding
-* mono conversion
-* 16 kHz resampling
-* audio quality metrics
-* adaptive voice activity detection
-* silence and non-speech region handling
-* global acoustic feature extraction
-* manual speaker segmentation using `segments_json`
-* Method 2 automatic speaker segmentation using handcrafted DSP features and K-Means
-* Method 3 speaker segmentation using ECAPA-TDNN embeddings
-* Method 3B improved ECAPA V2 diarization pipeline
-* Method 4 WavLM-based speaker embedding clustering
-* speaker-level acoustic feature extraction
-* optional diarization evaluation using reference speaker segments
-* structured JSON output
-* runtime metrics
-* privacy status reporting
-* Docker support
-* Hugging Face deployment support
-
----
-
-## Project Goals
-
-The full project aims to:
-
-* accept voice recordings through a backend API and frontend interface
-* support common audio formats
-* reject unsupported file formats
-* validate audio quality before feature extraction
-* preprocess audio by converting it to mono and resampling it to 16 kHz
-* detect speech and non-speech regions
-* support speaker-level processing
-* support automatic speaker diarization
-* extract basic acoustic features
-* return privacy-safe JSON output
-* avoid permanent raw audio storage
-* provide evaluation metrics when reference annotations are available
-* provide a frontend interface for non-technical users
+- FastAPI backend;
+- Streamlit frontend;
+- `/health` endpoint;
+- `/extract` endpoint;
+- browser-based audio upload;
+- support for `.wav`, `.mp3`, and `.m4a`;
+- rejection of unsupported files;
+- audio decoding with FFmpeg/librosa support;
+- mono conversion;
+- 16 kHz resampling;
+- audio quality metrics;
+- adaptive voice activity detection;
+- silence and pause handling;
+- global acoustic feature extraction;
+- advanced acoustic feature extraction;
+- manual segmentation through `segments_json`;
+- reference-based evaluation through `reference_segments_json`;
+- Method 2 speaker segmentation using handcrafted DSP features and K-Means;
+- Method 3 speaker segmentation using ECAPA-TDNN embeddings;
+- Method 3B improved ECAPA-TDNN diarization pipeline;
+- Method 4 WavLM-based speaker embedding clustering;
+- speaker-level acoustic features;
+- clustering quality metrics;
+- frame-based permutation-invariant diarization evaluation;
+- bootstrap evaluation over multiple samples;
+- runtime metrics;
+- privacy status reporting;
+- Docker support;
+- Hugging Face deployment support.
 
 ---
 
@@ -76,7 +134,7 @@ The system currently supports:
 .m4a
 ```
 
-Unsupported files are rejected with a clear error message.
+Unsupported formats are rejected with a clear error message.
 
 ---
 
@@ -93,9 +151,10 @@ voice-genetics/
 │   │   ├── audio_io.py
 │   │   ├── quality.py
 │   │   ├── vad.py
+│   │   ├── features.py
+│   │   ├── advanced_features.py
 │   │   ├── speaker_segmentation.py
 │   │   ├── evaluation.py
-│   │   ├── features.py
 │   │   └── privacy.py
 │   ├── tests/
 │   ├── Dockerfile
@@ -114,59 +173,158 @@ voice-genetics/
 │   │   └── api_client.py
 │   └── utils/
 │       └── formatting.py
+├── scripts/
+│   ├── prepare_voxconverse_kaggle_subset.py
+│   ├── rttm_to_reference_json.py
+│   ├── select_voxconverse_short_2_3_speakers.py
+│   ├── run_review3_method3_dataset.py
+│   ├── run_review4_method3b_dataset.py
+│   └── run_method3b_73_with_bootstrap.py
+├── results/
+│   └── method3b_73_bootstrap/
+│       ├── per_file_metrics.csv
+│       └── bootstrap_summary.csv
 ├── data/
 │   └── samples/
 ├── docs/
 ├── reports/
-├── results/
-├── scripts/
-│   ├── prepare_voxconverse_kaggle_subset.py
-│   └── rttm_to_reference_json.py
 ├── README.md
 └── .gitignore
 ```
 
-Large datasets, pretrained model folders, virtual environments, cache folders, and private raw data are intentionally excluded from the repository.
+Large datasets, raw audio files, pretrained model folders, virtual environments, cache folders, and private local files are intentionally excluded from the repository.
 
 ---
 
 ## System Architecture
 
 ```text
-Audio upload
-    ↓
-Input validation and decoding
-    ↓
-Mono conversion and 16 kHz resampling
-    ↓
-Quality metrics
-    ↓
+User
+  ↓
+Streamlit Frontend
+  ↓
+FastAPI Backend
+  ↓
+Audio I/O Layer
+  ↓
+Quality Analysis
+  ↓
 Adaptive VAD
-    ↓
-Acoustic feature extraction
-    ↓
-Optional speaker segmentation
-    ↓
-Optional diarization evaluation
-    ↓
-Privacy-safe JSON response
+  ↓
+Acoustic Feature Extraction
+  ↓
+Optional Speaker Diarization
+  ↓
+Optional Evaluation
+  ↓
+JSON Response
 ```
-
-The backend is modular so each processing stage can be improved independently.
 
 Main backend modules:
 
-| Module                    | Purpose                                                              |
-| ------------------------- | -------------------------------------------------------------------- |
-| `main.py`                 | FastAPI routes and request handling                                  |
-| `audio_io.py`             | Audio validation, loading, decoding, mono conversion, and resampling |
-| `quality.py`              | Audio quality metrics                                                |
-| `vad.py`                  | Voice activity detection and adaptive VAD logic                      |
-| `features.py`             | Acoustic feature extraction                                          |
-| `speaker_segmentation.py` | Manual, DSP/K-Means, ECAPA, ECAPA V2, and WavLM speaker segmentation |
-| `evaluation.py`           | Frame-based diarization evaluation                                   |
-| `privacy.py`              | Privacy status reporting                                             |
-| `schemas.py`              | Response models and structured output definitions                    |
+| Module | Purpose |
+|---|---|
+| `main.py` | FastAPI routes and request handling |
+| `audio_io.py` | File validation, decoding, mono conversion, and resampling |
+| `quality.py` | Audio quality metrics |
+| `vad.py` | Voice activity detection and adaptive VAD |
+| `features.py` | Basic acoustic feature extraction |
+| `advanced_features.py` | Formants, jitter, shimmer, HNR, speaking-rate proxy, and VOT proxy |
+| `speaker_segmentation.py` | Manual, DSP/K-Means, ECAPA, ECAPA V2, and WavLM diarization |
+| `evaluation.py` | Frame-based diarization evaluation |
+| `privacy.py` | Privacy status reporting |
+| `schemas.py` | Structured response models |
+
+---
+
+## AI Models and Algorithms Used
+
+The product uses pretrained speech models and clustering algorithms.
+
+### ECAPA-TDNN
+
+Model:
+
+```text
+speechbrain/spkrec-ecapa-voxceleb
+```
+
+Used in:
+
+```text
+segmentation_method=ecapa
+segmentation_method=ecapa_v2
+```
+
+ECAPA-TDNN means:
+
+```text
+Emphasized Channel Attention, Propagation and Aggregation Time Delay Neural Network
+```
+
+In this project, ECAPA-TDNN is used to extract speaker embeddings from speech chunks. These embeddings are then clustered to assign anonymous speaker labels.
+
+### WavLM
+
+Model:
+
+```text
+microsoft/wavlm-base-plus
+```
+
+Used in:
+
+```text
+segmentation_method=wavlm
+```
+
+WavLM extracts deep speech representations, which are pooled into chunk-level embeddings and clustered.
+
+### Clustering Methods
+
+The system uses:
+
+- K-Means clustering;
+- agglomerative clustering with cosine distance;
+- L2-normalized speaker embeddings;
+- smoothing of isolated speaker labels;
+- merging of short or adjacent same-speaker segments.
+
+### Important Training Note
+
+This project does **not** train or fine-tune ECAPA-TDNN or WavLM. These are pretrained models. The project focuses on building a complete production-style audio processing pipeline around these models.
+
+---
+
+## Dataset Used
+
+The main evaluation dataset is **VoxConverse**.
+
+VoxConverse provides conversational audio recordings and RTTM speaker annotations. RTTM files contain speaker timestamps and are used as reference labels for diarization evaluation.
+
+For the final evaluation, we selected:
+
+```text
+73 VoxConverse development audio samples
+```
+
+Selection criteria:
+
+```text
+speaker count: 2 or 3 speakers
+maximum duration: under 10 minutes
+reference labels: RTTM files available
+```
+
+Dataset split used in final evaluation:
+
+| Group | Number of files |
+|---|---:|
+| 2-speaker recordings | 39 |
+| 3-speaker recordings | 34 |
+| Total | 73 |
+
+The raw VoxConverse audio files are **not committed** to the repository because of size and dataset licensing considerations. The repository includes the scripts used to select samples and convert RTTM annotations.
 
 ---
 
@@ -180,32 +338,37 @@ The backend is built with FastAPI.
 http://localhost:8000
 ```
 
-### Main Endpoints
+### Endpoints
 
-| Endpoint   | Method | Purpose                                                   |
-| ---------- | ------ | --------------------------------------------------------- |
-| `/`        | GET    | Returns basic project information                         |
-| `/health`  | GET    | Checks whether the backend is running                     |
-| `/extract` | POST   | Uploads audio and returns acoustic/speaker-level analysis |
+| Endpoint | Method | Purpose |
+|---|---|---|
+| `/` | GET | Returns basic project information |
+| `/health` | GET | Checks whether the backend is running |
+| `/extract` | POST | Uploads audio and returns acoustic/speaker-level analysis |
 
 ---
 
 ## Running the Backend Locally
 
-Run all backend commands from the backend folder:
+From the project root, open the backend folder:
 
 ```bash
-cd "/mnt/f/Innopolis 3 year/Industrial Project/Voice genetics/voice-genetics/backend"
+cd backend
 ```
 
-Create and activate a virtual environment:
+Create a virtual environment:
 
 ```bash
 python3 -m venv .venv
+```
+
+Activate it:
+
+```bash
 source .venv/bin/activate
 ```
 
-Install requirements:
+Install dependencies:
 
 ```bash
 pip install --upgrade pip
@@ -218,7 +381,7 @@ Run the API:
 python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-Open the health endpoint:
+Open:
 
 ```text
 http://localhost:8000/health
@@ -230,44 +393,54 @@ Expected response:
 {
   "status": "ok",
   "service": "voice-genetics-api",
-  "version": "0.10.0",
   "message": "Voice Genetics API is running"
 }
 ```
 
+Swagger API documentation:
+
+```text
+http://localhost:8000/docs
+```
+
 ---
 
-## Running the Streamlit Frontend Locally
+## Running the Frontend Locally
 
 Keep the FastAPI backend running on port `8000`.
 
-Open a second terminal and run:
+Open a second terminal:
 
 ```bash
-cd "/mnt/f/Innopolis 3 year/Industrial Project/Voice genetics/voice-genetics/frontend"
+cd frontend
 ```
 
-Create and activate a virtual environment:
+Create a virtual environment:
 
 ```bash
 python3 -m venv .venv
+```
+
+Activate it:
+
+```bash
 source .venv/bin/activate
 ```
 
-Install frontend requirements:
+Install dependencies:
 
 ```bash
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-Run the Streamlit app:
+Run Streamlit:
 
 ```bash
 streamlit run app.py
 ```
 
-Open the frontend:
+Open:
 
 ```text
 http://localhost:8501
@@ -281,231 +454,185 @@ http://127.0.0.1:8000
 
 ---
 
-## Frontend Features
+## Running with cURL
 
-The Streamlit frontend supports:
+Keep the backend running.
 
-* browser-based audio upload
-* supported formats: WAV, MP3, M4A
-* backend health check
-* method selection
-* expected speaker count selection
-* chunk duration setting
-* adaptive/fixed VAD selection
-* VAD threshold settings
-* ECAPA-specific settings
-* optional manual/reference segment input
-* quality metrics display
-* voice activity display
-* speaker segmentation summary
-* speaker duration table
-* speaker segment table
-* acoustic feature display
-* privacy status display
-* raw JSON display
-
-Available frontend methods:
-
-| Method value | Frontend label         | Purpose                             |
-| ------------ | ---------------------- | ----------------------------------- |
-| `none`       | Acoustic features only | No speaker segmentation             |
-| `auto`       | Method 2               | Handcrafted DSP features + K-Means  |
-| `ecapa`      | Method 3               | ECAPA-TDNN speaker embeddings       |
-| `ecapa_v2`   | Method 3B              | Improved ECAPA diarization pipeline |
-| `wavlm`      | Method 4               | WavLM embeddings + K-Means          |
-
----
-
-## Testing Audio Feature Extraction with cURL
-
-Keep the API running in one terminal.
-
-Open a second terminal from the project root:
-
-```bash
-cd "/mnt/f/Innopolis 3 year/Industrial Project/Voice genetics/voice-genetics"
-```
-
-Test the `/extract` endpoint:
+From the project root:
 
 ```bash
 curl -X POST "http://localhost:8000/extract" \
   -F "file=@data/samples/sample.wav"
 ```
 
-Expected output includes:
+Example with Method 3B:
 
-* filename
-* quality metrics
-* voice activity metrics
-* preprocessing metrics
-* speaker segmentation status
-* diarization evaluation status
-* runtime metrics
-* acoustic features
-* speaker-level features
-* warnings
-* privacy status
+```bash
+curl -X POST "http://localhost:8000/extract" \
+  -F "file=@data/samples/sample.wav" \
+  -F "segmentation_method=ecapa_v2" \
+  -F "expected_speakers=2" \
+  -F "chunk_duration_seconds=2.0" \
+  -F "vad_mode=adaptive" \
+  -F "vad_top_db=30" \
+  -F "vad_min_rms=0.015" \
+  -F "vad_min_region_duration_seconds=0.25" \
+  -F "vad_merge_gap_seconds=0.8" \
+  -F "ecapa_chunk_hop_seconds=1.0" \
+  -F "ecapa_smoothing_passes=1"
+```
+
+---
+
+## Frontend Features
+
+The Streamlit frontend supports:
+
+- browser-based audio upload;
+- supported formats: WAV, MP3, M4A;
+- backend health check;
+- diarization method selection;
+- expected speaker count input;
+- chunk duration setting;
+- adaptive/fixed VAD selection;
+- VAD threshold settings;
+- ECAPA-specific settings;
+- optional manual/reference segment input;
+- quality metric display;
+- VAD summary display;
+- speaker segmentation summary;
+- speaker duration table;
+- speaker segment table;
+- clustering metric display;
+- acoustic feature display;
+- privacy status display;
+- raw JSON display.
+
+Available frontend methods:
+
+| Method value | Frontend label | Purpose |
+|---|---|---|
+| `none` | Acoustic features only | No speaker segmentation |
+| `auto` | Method 2 | Handcrafted DSP features + K-Means |
+| `ecapa` | Method 3 | ECAPA-TDNN speaker embeddings |
+| `ecapa_v2` | Method 3B | Improved ECAPA diarization pipeline |
+| `wavlm` | Method 4 | WavLM embeddings + K-Means |
+
+Recommended method:
+
+```text
+ecapa_v2
+```
 
 ---
 
 ## Speaker Segmentation Methods
 
-The backend supports several speaker segmentation modes.
+### Method 1: No Speaker Segmentation
 
-| Method     | Description                                  | Main use                              |
-| ---------- | -------------------------------------------- | ------------------------------------- |
-| `none`     | No speaker segmentation                      | Acoustic feature extraction only      |
-| `auto`     | Handcrafted DSP/VAD-based speaker clustering | Lightweight baseline                  |
-| `ecapa`    | ECAPA-TDNN speaker embedding clustering      | Speaker-specific embedding baseline   |
-| `ecapa_v2` | Improved ECAPA-TDNN diarization pipeline     | Recommended automatic method          |
-| `wavlm`    | WavLM speaker embedding clustering           | Deep speech-representation comparison |
-
-Recommended automatic method:
+Selected using:
 
 ```text
-ecapa_v2
+segmentation_method=none
 ```
 
-Example:
+This mode extracts only global acoustic features.
 
-```bash
-curl -X POST "http://localhost:8000/extract" \
-  -F "file=@data/samples/test.wav" \
-  -F "segmentation_method=ecapa_v2" \
-  -F "expected_speakers=2"
-```
+### Method 2: DSP Features + K-Means
 
----
-
-## Method 2: DSP Features + K-Means
-
-Method 2 is selected using:
+Selected using:
 
 ```text
 segmentation_method=auto
 ```
 
-It works as follows:
+Pipeline:
 
 ```text
-audio → VAD speech chunks → DSP features → K-Means → speaker labels → merged segments
+audio → VAD speech chunks → handcrafted acoustic features → K-Means → speaker labels
 ```
 
-Steps:
+This is a lightweight baseline. It is fast but less speaker-specific because it uses features such as RMS, MFCCs, spectral information, and pitch-related measurements.
 
-1. The uploaded audio is decoded and resampled to 16 kHz mono.
-2. VAD detects speech regions.
-3. Speech regions are divided into fixed-size chunks.
-4. Each chunk is represented using handcrafted acoustic features.
-5. Features include RMS energy, MFCCs, spectral information, and pitch-related information.
-6. K-Means groups the chunk feature vectors into the expected number of speakers.
-7. Cluster IDs are converted into anonymous labels such as `speaker_1` and `speaker_2`.
-8. Adjacent chunks with the same label are merged into longer speaker segments.
+### Method 3: ECAPA-TDNN Speaker Embeddings
 
-Limitation:
-
-Method 2 uses handcrafted acoustic measurements, not true speaker identity embeddings. Loudness, pitch, or speaking-style changes can therefore be mistaken for speaker changes.
-
----
-
-## Method 3: ECAPA-TDNN
-
-Method 3 is selected using:
+Selected using:
 
 ```text
 segmentation_method=ecapa
 ```
 
-ECAPA-TDNN means:
+Pipeline:
 
 ```text
-Emphasized Channel Attention, Propagation and Aggregation Time Delay Neural Network
+audio → VAD speech chunks → ECAPA speaker embeddings → clustering → speaker segments
 ```
 
-In this project, ECAPA-TDNN is used to extract speaker embeddings from speech chunks. These embeddings are more speaker-specific than handcrafted DSP features, so they are better suited for speaker segmentation.
+This is stronger than Method 2 because ECAPA embeddings are speaker-oriented representations.
 
-The basic ECAPA pipeline is:
+### Method 3B: Improved ECAPA-TDNN Pipeline
 
-```text
-audio → VAD speech chunks → ECAPA embeddings → clustering → speaker segments
-```
-
----
-
-## Method 3B: ECAPA V2
-
-Method 3B is selected using:
+Selected using:
 
 ```text
 segmentation_method=ecapa_v2
 ```
 
-ECAPA V2 is the improved diarization pipeline.
+This is the recommended final method.
 
-It includes:
+Method 3B includes:
 
-* central VAD speech-region processing
-* overlapping speech chunks
-* short-region handling
-* embedding extraction using ECAPA-TDNN
-* cosine/agglomerative clustering
-* smoothing of isolated labels
-* merging of adjacent same-speaker segments
-* speaker-level feature extraction
-* optional reference-based evaluation
+- central/adaptive VAD;
+- overlapping speech chunks;
+- short-region handling;
+- ECAPA-TDNN speaker embeddings;
+- L2 embedding normalization;
+- agglomerative cosine clustering;
+- isolated-label smoothing;
+- short-segment merging;
+- speaker-level acoustic features;
+- clustering metrics;
+- optional reference-based evaluation.
 
-Recommended method for final project testing:
+Pipeline:
 
 ```text
-ecapa_v2
+audio
+  → adaptive VAD
+  → overlapping speech chunks
+  → ECAPA embeddings
+  → L2 normalization
+  → agglomerative cosine clustering
+  → smoothing
+  → segment merging
+  → speaker segments
+  → evaluation if reference is provided
 ```
 
----
+### Method 4: WavLM Embeddings + K-Means
 
-## Method 4: WavLM Embeddings + K-Means
-
-Method 4 is selected using:
+Selected using:
 
 ```text
 segmentation_method=wavlm
 ```
 
-WavLM model used:
+Pipeline:
 
 ```text
-microsoft/wavlm-base-plus
+audio → speech chunks → WavLM hidden states → pooled embeddings → K-Means → speaker segments
 ```
-
-Method 4 works as follows:
-
-```text
-audio → speech chunks → WavLM model → pooled embeddings → K-Means → speaker segments
-```
-
-Steps:
-
-1. The uploaded audio is decoded and resampled to 16 kHz mono.
-2. Speech chunks are prepared.
-3. Each chunk is passed through WavLM.
-4. WavLM produces hidden speech representations.
-5. Hidden states are pooled into one embedding vector per chunk.
-6. K-Means clusters the embeddings into speaker groups.
-7. Clusters are converted into speaker labels and merged into speaker segments.
 
 Limitations:
 
-* WavLM is slower on CPU.
-* Model loading increases runtime.
-* It can over-group most audio into one dominant speaker.
-* WavLM embeddings may capture speech content or acoustic context, not only speaker identity.
-* It needs better batching, smoothing, and pause handling.
+- slow on CPU;
+- can over-group speakers;
+- may capture content/context, not only speaker identity;
+- useful mainly as a comparison baseline.
 
 ---
 
 ## Adaptive Voice Activity Detection
-
-The system includes adaptive voice activity detection.
 
 Default VAD mode:
 
@@ -513,7 +640,7 @@ Default VAD mode:
 vad_mode=adaptive
 ```
 
-Default values:
+Recommended settings:
 
 ```text
 vad_mode=adaptive
@@ -523,11 +650,7 @@ vad_min_region_duration_seconds=0.25
 vad_merge_gap_seconds=0.8
 ```
 
-Adaptive VAD adjusts the RMS threshold depending on the loudness of the recording.
-
-For normal or loud audio, the system keeps the requested RMS threshold.
-
-For quiet audio, the system lowers the effective RMS threshold to avoid removing quiet speech.
+Adaptive VAD adjusts the effective RMS threshold based on recording loudness.
 
 Example:
 
@@ -537,7 +660,52 @@ Effective min RMS: 0.005
 Reason: quiet_audio_detected_global_rms_below_0.025_using_min_rms_0.005
 ```
 
-This was added after testing quiet recordings where strict VAD missed too much speech.
+This helps keep quiet speech instead of removing it too aggressively.
+
+---
+
+## Acoustic Features Extracted
+
+### Audio Quality Metrics
+
+- duration;
+- sample rate;
+- RMS energy;
+- peak amplitude;
+- clipping rate.
+
+### Basic Acoustic Features
+
+- MFCC means;
+- MFCC standard deviations;
+- spectral centroid mean;
+- spectral centroid standard deviation;
+- pitch mean;
+- pitch minimum;
+- pitch maximum.
+
+### Advanced Acoustic Features
+
+The final system also extracts:
+
+- formants F1, F2, F3;
+- jitter;
+- shimmer;
+- harmonic-to-noise ratio;
+- speaking-rate proxy;
+- voice-onset-time proxy.
+
+Important note:
+
+Some advanced acoustic measurements are approximate signal-based estimates:
+
+- formants are estimated using LPC roots;
+- jitter and shimmer are estimated from frame-level pitch and RMS variation;
+- HNR is estimated using a harmonic/residual energy ratio;
+- speaking rate is estimated from syllable-like RMS envelope peaks;
+- VOT is estimated as an energy-onset-to-first-voiced-frame proxy.
+
+True clinical-grade jitter, shimmer, HNR, speaking rate, and VOT would require tools such as Praat, transcript alignment, or phoneme-level forced alignment.
 
 ---
 
@@ -564,38 +732,43 @@ Example:
 
 When `segments_json` is provided, it overrides automatic diarization.
 
-This mode is useful when exact speaker timestamps are known.
+This is useful when exact speaker timestamps are already known.
 
 ---
 
-## Diarization Evaluation
+## Reference-Based Diarization Evaluation
 
-The API can evaluate diarization if reference speaker segments are provided through `reference_segments_json`.
+Reference speaker labels can be provided using `reference_segments_json`.
 
 Important distinction:
 
-* `segments_json` is used as manual speaker segmentation input.
-* `reference_segments_json` is used only for evaluation.
-* `reference_segments_json` does not affect the automatic prediction.
+- `segments_json` is used as manual speaker segmentation input.
+- `reference_segments_json` is used only for evaluation.
+- `reference_segments_json` does not change the automatic prediction.
 
-The evaluation is frame-based and permutation-invariant.
+The evaluation is:
 
-Frame-based means the audio timeline is divided into small time steps, and each time step is compared against the reference labels.
+```text
+frame-based
+permutation-invariant
+```
 
-Permutation-invariant means the evaluation does not assume that predicted `speaker_1` must match reference `speaker_1`. It finds the best speaker-label mapping before scoring, because automatic clustering labels are anonymous.
+Frame-based means the timeline is divided into small time steps and compared against reference labels.
+
+Permutation-invariant means predicted labels are mapped to reference labels before scoring, because automatic cluster labels are anonymous.
 
 Returned metrics include:
 
-* diarization error rate
-* DER percentage
-* speech precision
-* speech recall
-* speaker assignment accuracy on overlap
-* missed speech duration
-* false alarm duration
-* speaker confusion duration
-* speaker duration error
-* boundary metrics
+- DER;
+- DER percentage;
+- speech precision;
+- speech recall;
+- speaker assignment accuracy;
+- missed speech;
+- false alarm;
+- speaker confusion;
+- speaker duration error;
+- boundary metrics.
 
 ---
 
@@ -607,212 +780,173 @@ DER means:
 Diarization Error Rate
 ```
 
-It measures how much of the speaker timeline is wrong.
+Lower DER is better.
 
-A lower DER is better.
+DER combines three error types:
 
-DER is affected by three main error types:
+| Error type | Meaning |
+|---|---|
+| Missed speech | Real speech exists, but the system marks it as non-speech |
+| False alarm | System marks non-speech/silence as speech |
+| Speaker confusion | System detects speech but assigns the wrong speaker |
 
-| Error type        | Meaning                                                   |
-| ----------------- | --------------------------------------------------------- |
-| Missed speech     | Real speech exists, but the system marks it as non-speech |
-| False alarm       | System marks non-speech/silence as speech                 |
-| Speaker confusion | System detects speech but assigns it to the wrong speaker |
-
-A simplified interpretation is:
+Simplified:
 
 ```text
 DER = missed speech + false alarm + speaker confusion
 ```
 
-In this project, DER-style evaluation is used to check how close automatic speaker segmentation is to manual ground-truth speaker timestamps.
-
 ---
 
-## VoxConverse Evaluation
+## Final Evaluation on 73 VoxConverse Samples
 
-The ECAPA V2 diarization pipeline was evaluated on a clean VoxConverse subset using RTTM ground-truth annotations.
+The final Method 3B evaluation was run on 73 VoxConverse samples with 2 or 3 speakers and duration under 10 minutes.
 
-The selected subset contains five recordings:
-
-| File    | Duration | Speakers |
-| ------- | -------: | -------: |
-| `afjiv` | 151.248s |        5 |
-| `akthc` | 114.521s |        2 |
-| `ampme` | 148.320s |        3 |
-| `asxwr` | 237.767s |        3 |
-| `aufkn` | 181.488s |        3 |
-
-The VoxConverse audio data and full extracted dataset are not committed to this repository because of size. Scripts used for preparing subsets and converting RTTM annotations are included in `scripts/`.
-
----
-
-## Fixed VAD Results
-
-Initial ECAPA V2 evaluation with fixed VAD produced:
-
-| File    | Speakers |    DER |
-| ------- | -------: | -----: |
-| `afjiv` |        5 | 66.38% |
-| `akthc` |        2 |  3.29% |
-| `ampme` |        3 |  6.07% |
-| `asxwr` |        3 |  3.60% |
-| `aufkn` |        3 |  9.14% |
-
-Average DER over all five files:
+The evaluation script used:
 
 ```text
-17.70%
+scripts/run_method3b_73_with_bootstrap.py
 ```
 
-Average DER excluding the difficult quiet outlier `afjiv`:
+Output files:
 
 ```text
-5.53%
+results/method3b_73_bootstrap/per_file_metrics.csv
+results/method3b_73_bootstrap/bootstrap_summary.csv
 ```
+
+### Overall Result
+
+| Metric | Value |
+|---|---:|
+| Number of files | 73 |
+| 2-speaker files | 39 |
+| 3-speaker files | 34 |
+| Bootstrap mean DER | 21.44% |
+| Bootstrap std DER | 6.37% |
+| 95% bootstrap CI | 12.73% – 36.05% |
+| Median per-file DER | 8.02% |
+| Micro DER over all frames | 15.53% |
 
 Interpretation:
 
-The fixed VAD setup worked well on four normal recordings, with DER values between `3.29%` and `9.14%`. However, it failed badly on `afjiv`, producing `66.38%` DER. The reason was that `afjiv` was a difficult quiet multi-speaker recording, so strict VAD removed or misclassified too much speech.
+Method 3B works well on many recordings, but the mean DER is increased by several difficult outlier files. The median DER is much lower than the mean, showing that the typical file performs better than the average suggests.
 
----
+### DER Distribution
 
-## Adaptive VAD Results
+| DER range | Number of files |
+|---|---:|
+| ≤ 5% | 26 |
+| 5–10% | 15 |
+| 10–20% | 8 |
+| 20–50% | 20 |
+| 50–100% | 3 |
+| >100% | 1 |
 
-Adaptive VAD improved the difficult quiet recording `afjiv`.
-
-| File    | Speakers | Global RMS | Effective RMS | Speech Coverage |    DER |
-| ------- | -------: | ---------: | ------------: | --------------: | -----: |
-| `afjiv` |        5 |   0.019047 |         0.005 |          0.9540 | 32.91% |
-| `akthc` |        2 |   0.058569 |         0.015 |          0.9330 |  3.29% |
-| `ampme` |        3 |   0.050048 |         0.015 |          0.8777 |  6.07% |
-| `asxwr` |        3 |   0.039366 |         0.010 |          0.9945 |  3.60% |
-| `aufkn` |        3 |   0.057042 |         0.015 |          0.9728 |  9.14% |
-
-Average DER over all five files:
+Summary:
 
 ```text
-11.00%
+41 out of 73 files had DER below 10%.
+49 out of 73 files had DER below 20%.
 ```
 
-Adaptive VAD reduced the overall average DER from:
+### 2-Speaker vs 3-Speaker Results
 
-```text
-17.70% to 11.00%
-```
-
-The largest improvement was on `afjiv`:
-
-```text
-Fixed VAD DER:     66.38%
-Adaptive VAD DER:  32.91%
-Improvement:       33.47 percentage points
-```
+| Group | Files | Bootstrap mean DER | Bootstrap std | Median DER |
+|---|---:|---:|---:|---:|
+| 2 speakers | 39 | 15.93% | 3.07% | 7.15% |
+| 3 speakers | 34 | 27.96% | 12.92% | 8.50% |
 
 Interpretation:
 
-Adaptive VAD helped because it detected that `afjiv` had low global RMS and lowered the effective RMS threshold from `0.015` to `0.005`. This allowed the system to keep more quiet speech instead of removing it.
+3-speaker files are more difficult on average. The median DER for 3-speaker files is still close to the 2-speaker median, but the 3-speaker mean is inflated by difficult outliers.
 
-The remaining `afjiv` error was mainly due to false alarm and speaker confusion, not missed speech. This means the system became much better at keeping speech, but it still sometimes assigned non-speech or wrong speakers to the timeline.
+### Error Breakdown
 
-For the four normal files, ECAPA V2 remained strong, with DER values between:
+Across all 73 files:
 
-```text
-3.29% and 9.14%
-```
+| Error type | Total seconds | Contribution relative to reference speech |
+|---|---:|---:|
+| Missed speech | 72.3 s | 0.47% |
+| False alarm | 788.4 s | 5.07% |
+| Speaker confusion | 1551.8 s | 9.99% |
+| Total diarization error | 2412.5 s | 15.53% |
 
-This shows that the ECAPA V2 pipeline works well on normal-quality audio, while quiet multi-speaker recordings remain challenging.
+Interpretation:
+
+The system rarely misses speech. The main remaining problem is speaker confusion, followed by false alarm speech.
+
+### Speech Detection
+
+| Metric | Mean |
+|---|---:|
+| Speech precision | 94.08% |
+| Speech recall | 99.47% |
+| Pause detection accuracy | 30.08% |
+
+Interpretation:
+
+The VAD is recall-heavy. It keeps almost all speech, which reduces missed speech, but it sometimes keeps too much non-speech as speech.
+
+### Clustering Quality
+
+| Metric | Overall mean | 2-speaker mean | 3-speaker mean |
+|---|---:|---:|---:|
+| Silhouette score | 0.410 | 0.445 | 0.371 |
+| Cluster balance ratio | 0.257 | 0.354 | 0.145 |
+| Segment smoothness | 0.957 | 0.972 | 0.940 |
+
+Interpretation:
+
+Method 3B produces smooth timelines, but cluster balance remains a challenge, especially for 3-speaker recordings where one speaker may dominate or a minority speaker may be collapsed.
+
+### Runtime
+
+| Runtime metric | Value |
+|---|---:|
+| Total runtime for 73 files | 12.77 hours |
+| Mean runtime per file | 629.57 s |
+| Median runtime per file | 491.65 s |
+| Average processing time per 1 minute of audio | 162.6 s |
+
+Interpretation:
+
+The system is functional but computationally heavy. ECAPA-based diarization on long files is slow on CPU, so short demo files are preferred for live presentation.
 
 ---
 
-## Example Adaptive VAD Result
+## Bootstrap Evaluation
 
-For the quiet file `afjiv.wav`, adaptive VAD produced:
+The project uses bootstrapping rather than cross-validation.
+
+Reason:
+
+The system evaluates a fixed diarization and acoustic-feature extraction pipeline. It does not train a supervised model on the 73 VoxConverse files. Therefore, bootstrapping is more appropriate for estimating how stable the average performance is across different possible sample subsets.
+
+Bootstrap procedure:
 
 ```text
-Adaptive VAD: True
-Adaptive reason: quiet_audio_detected_global_rms_below_0.025_using_min_rms_0.005
-Requested min RMS: 0.015
-Effective min RMS: 0.005
-Global RMS: 0.019047
-Speech coverage: 0.954
-DER: 32.91%
-Speech precision: 0.8647
-Speech recall: 0.9937
-Speaker accuracy overlap: 0.8316
-Missed speech: 0.8s
-False alarm: 19.6s
-Speaker confusion: 21.1s
+1. Run Method 3B once on all 73 files.
+2. Store one metric row per file.
+3. Randomly sample 73 files with replacement.
+4. Compute the average metric for that sampled set.
+5. Repeat this process 1000 times.
+6. Report the mean and standard deviation of the bootstrap averages.
 ```
 
-This confirms that adaptive VAD successfully reduced missed speech for quiet recordings.
+The bootstrap output is saved in:
+
+```text
+results/method3b_73_bootstrap/bootstrap_summary.csv
+```
 
 ---
 
-## Current Extracted Metrics
+## Privacy Design
 
-### Audio Quality Metrics
+The system is designed to avoid permanent storage of uploaded raw audio.
 
-* duration
-* sample rate
-* RMS energy
-* peak amplitude
-* clipping rate
-
-### Voice Activity Metrics
-
-* speech regions
-* removed non-speech segments
-* speech region count
-* removed non-speech count
-* speech duration
-* non-speech duration
-* speech coverage ratio
-* requested RMS threshold
-* effective RMS threshold
-* adaptive VAD reason
-* global RMS
-
-### Preprocessing Metrics
-
-* original duration
-* processed duration
-* removed silence duration
-* removed silence percentage
-* speech regions
-* removed non-speech segments
-
-### Acoustic Features
-
-* MFCC mean values
-* MFCC standard deviation values
-* spectral centroid mean
-* spectral centroid standard deviation
-* pitch mean
-* pitch minimum
-* pitch maximum
-
-### Speaker Segmentation Metrics
-
-* segmentation method
-* detected speakers
-* expected speakers
-* speaker speech duration
-* speaker segment count
-* speaker segments
-* central VAD information
-* embedding model information
-* clustering backend information
-
-### Runtime Metrics
-
-* total processing time
-* speaker processing time
-* evaluation processing time
-
-### Privacy Metrics
-
-The API response includes:
+The backend response includes a privacy section similar to:
 
 ```json
 {
@@ -822,57 +956,198 @@ The API response includes:
 }
 ```
 
-This confirms that the backend returns numerical features and metadata, not raw waveform data.
+Privacy principles:
+
+- process audio temporarily;
+- delete temporary files after processing;
+- return numerical features and metadata only;
+- do not return raw waveform data;
+- do not identify real people;
+- use anonymous speaker labels such as `speaker_1`, `speaker_2`.
 
 ---
 
-## Example Successful Feature Extraction Result
+## Handling Incorrect or Unexpected User Actions
 
-A short sample was tested successfully.
+The system handles several unexpected cases:
 
-The system returned:
-
-```text
-duration_seconds: 7.19
-sample_rate: 16000
-rms_energy: 0.059408
-clipping_rate: 0.0
-processed_duration_seconds: 6.688
-removed_silence_percentage: 6.98
-pitch_mean_hz: 195.449
-raw_audio_stored: false
-temporary_files_deleted: true
-output_contains_raw_audio: false
-```
-
-This confirms that the backend pipeline works for basic acoustic feature extraction.
+- unsupported file formats are rejected;
+- missing uploaded files return an error;
+- invalid JSON in `segments_json` or `reference_segments_json` is rejected;
+- invalid segment timestamps are checked;
+- reference segments that exceed audio duration are rejected;
+- missing expected speaker count is handled depending on method;
+- low-quality or quiet audio produces quality/VAD warnings;
+- low-confidence clustering can produce warnings;
+- cluster imbalance can produce warnings;
+- raw audio is not returned in the response.
 
 ---
 
 ## Docker Support
 
-The backend includes Docker support.
+The final project includes a **standalone full-stack Docker container**.
 
-The backend Docker image uses:
+The container starts both:
 
 ```text
-python:3.12-slim-bookworm
+FastAPI backend  → port 8000
+Streamlit UI     → port 8501
 ```
 
-The container installs required system dependencies:
+This means the instructor can build and run the full product with Docker, then open the browser interface without manually starting the backend and frontend separately.
+
+### Docker Files
+
+The repository includes:
+
+| File | Purpose |
+|---|---|
+| `Dockerfile` | Builds the full-stack Docker image |
+| `start.sh` | Starts FastAPI first, waits for the backend health check, then starts Streamlit |
+| `.dockerignore` | Excludes datasets, virtual environments, model caches, raw audio, and large result folders from the Docker image |
+
+The Docker image uses:
+
+```text
+python:3.10-slim-bookworm
+```
+
+System dependencies installed inside the image include:
 
 ```text
 ffmpeg
 libsndfile1
+build-essential
+curl
+git
 ```
 
-The backend exposes:
+These are required for audio decoding, speech processing, and health checks.
+
+### Important Docker Packaging Note
+
+The Docker image intentionally contains **code only**, not large local datasets or model caches.
+
+Excluded from the Docker build context:
 
 ```text
-8000
+data/
+results/
+reports/
+.venv/
+.venv-reference/
+backend/.venv/
+frontend/.venv/
+backend/pretrained_models/
+*.wav
+*.mp3
+*.m4a
+*.pt
+*.pth
+*.bin
+*.safetensors
 ```
 
-and runs the FastAPI server with Uvicorn.
+This keeps the Docker image suitable for submission and prevents Docker from copying several gigabytes of local experiment files.
+
+### Build the Docker Image
+
+From the project root:
+
+```bash
+docker build --progress=plain -t voice-genetics-final .
+```
+
+Successful build evidence from the final local test:
+
+```text
+naming to docker.io/library/voice-genetics-final:latest done
+unpacking to docker.io/library/voice-genetics-final:latest done
+DONE
+```
+
+### Run the Docker Container
+
+From the project root, run:
+
+```bash
+docker run --rm \
+  -p 8000:8000 \
+  -p 8501:8501 \
+  -v voice-genetics-cache:/app/.cache \
+  voice-genetics-final
+```
+
+The named volume:
+
+```text
+voice-genetics-cache
+```
+
+is used to persist Hugging Face/Torch model downloads between runs, so models do not need to be downloaded every time the container starts.
+
+### Open the Product
+
+After the container starts, open:
+
+```text
+http://localhost:8501
+```
+
+Backend health check:
+
+```text
+http://localhost:8000/health
+```
+
+Swagger API documentation:
+
+```text
+http://localhost:8000/docs
+```
+
+In the Streamlit sidebar, the backend URL should remain:
+
+```text
+http://127.0.0.1:8000
+```
+
+### Recommended Docker Demo
+
+Use a short `.wav`, `.mp3`, or `.m4a` file.
+
+Recommended settings:
+
+```text
+Method: ecapa_v2
+Expected speakers: 2 or 3
+Chunk duration: 2.0
+VAD mode: adaptive
+VAD top_db: 30
+VAD min RMS: 0.015
+ECAPA hop: 1.0
+Smoothing passes: 1
+```
+
+The first run may be slower because the container may download pretrained speech models. Later runs are faster if the cache volume is reused.
+
+### Docker Troubleshooting
+
+If Docker says it cannot find the Dockerfile, make sure the command is run from the project root, where these files exist:
+
+```text
+Dockerfile
+start.sh
+.dockerignore
+backend/
+frontend/
+scripts/
+```
+
+If Docker transfers several gigabytes during build, check `.dockerignore`. Large folders such as `data/`, `.venv-reference/`, `backend/pretrained_models/`, `results/`, and virtual environments should be excluded.
+
+If using Windows + WSL, Docker Desktop must be running and WSL integration must be enabled for the Ubuntu distro.
 
 ---
 
@@ -882,8 +1157,8 @@ The live project is deployed as a Hugging Face Space.
 
 The Space runs:
 
-* FastAPI backend internally on port `8000`
-* Streamlit frontend publicly on port `8501`
+- FastAPI backend internally on port `8000`;
+- Streamlit frontend publicly on port `8501`.
 
 Public app:
 
@@ -891,104 +1166,115 @@ Public app:
 https://gisele-voice-genetics.hf.space
 ```
 
-The Streamlit frontend communicates with the backend using:
+Inside the Hugging Face container, the frontend communicates with the backend through:
 
 ```text
 http://127.0.0.1:8000
 ```
 
-inside the same container.
-
 ---
 
-## Privacy Rule
+## Difficulties Faced
 
-The system must not permanently store uploaded raw audio.
+Main difficulties during development:
 
-The backend should:
+1. **Speaker diarization is harder than simple audio feature extraction.**  
+   Basic acoustic features were easier to compute, but speaker segmentation required model embeddings, clustering, smoothing, and evaluation.
 
-* process audio temporarily
-* delete temporary files after processing
-* return only numerical features
-* avoid returning raw waveforms
-* avoid returning personal identity information in JSON output
-* avoid storing raw user recordings permanently
+2. **Handcrafted DSP clustering was not speaker-specific enough.**  
+   Method 2 sometimes confused pitch, loudness, or content differences with speaker identity.
+
+3. **WavLM was slow and not always speaker-specific.**  
+   WavLM embeddings sometimes captured content or acoustic context, not only speaker identity.
+
+4. **Quiet recordings required adaptive VAD.**  
+   Fixed VAD thresholds removed too much quiet speech in difficult recordings.
+
+5. **Speaker-count and cluster imbalance remained difficult.**  
+   Some files had one dominant speaker and one very small speaker cluster. In some cases, minority speakers were collapsed.
+
+6. **False alarms and speaker confusion remained the main error sources.**  
+   The final evaluation showed very low missed speech but higher speaker confusion and false alarm errors.
+
+7. **Runtime was heavy.**  
+   Running ECAPA-based diarization over 73 files took many hours.
+
+8. **Some acoustic features are difficult without linguistic labels.**  
+   True speaking rate and voice onset time require transcript or phoneme-level alignment, so the current implementation reports proxy estimates.
 
 ---
 
 ## Current Limitations
 
-The current system has the following limitations:
+Current limitations:
 
-* diarization is slower on long audio files
-* ECAPA V2 can take several minutes for recordings longer than 2-3 minutes
-* diarization performance depends on audio quality and number of speakers
-* quiet multi-speaker recordings remain difficult
-* false alarms and speaker confusion can still occur
-* WavLM is slow on CPU and may over-group audio
-* K-Means requires the expected number of speakers
-* the current evaluation is frame-based and internal
-* future work should add standard DER scoring using `pyannote.metrics`
-* `/extract` currently handles both inference and evaluation
-* a separate `/evaluate` endpoint should be added later
+- diarization is slow on long recordings;
+- ECAPA V2 can take several minutes for recordings longer than 2–3 minutes;
+- speaker confusion still occurs on difficult files;
+- false alarms still occur when non-speech is kept as speech;
+- cluster imbalance remains a challenge;
+- minority speakers can sometimes be collapsed;
+- overlap speech is assigned to only one speaker cluster;
+- WavLM is slow on CPU;
+- true speaking rate requires transcripts;
+- true VOT requires phoneme-level alignment;
+- jitter, shimmer, and HNR are approximate signal-based estimates;
+- standard pyannote DER is not enabled by default;
+- `/extract` currently handles both inference and evaluation.
 
 ---
 
 ## Future Work
 
-Future work may add:
+Future work may include:
 
-* separate `/evaluate` endpoint
-* RTTM upload support
-* standard DER computation using `pyannote.metrics`
-* collar-based DER evaluation
-* overlap-aware diarization scoring
-* stronger noise and SNR estimation
-* confidence-based warnings for low-quality recordings
-* better speaker-change boundary detection
-* improved clustering for difficult multi-speaker files
-* pyannote or NeMo diarization baseline
-* formants F1, F2, and F3
-* jitter
-* shimmer
-* harmonic-to-noise ratio
-* prosodic features
-* anonymized voice embedding
-* stronger Docker testing
-* frontend report download
-* improved runtime optimization
+- separate `/evaluate` endpoint;
+- direct RTTM upload support;
+- standard DER computation using `pyannote.metrics`;
+- collar-based DER evaluation;
+- overlap-aware diarization scoring;
+- stronger noise and SNR estimation;
+- better speaker-change boundary detection;
+- improved clustering for difficult multi-speaker files;
+- pyannote or NeMo diarization baseline;
+- external validation on another diarization dataset;
+- improved VOT using forced alignment;
+- improved speaking rate using transcripts;
+- Praat/parselmouth-based jitter, shimmer, HNR, and formants;
+- runtime optimization and batching;
+- downloadable frontend report.
 
 ---
 
-## Review Evidence
+## Final Review Evidence
 
-The current implementation demonstrates that:
+The final implementation demonstrates that:
 
-* the API starts successfully
-* `/health` returns OK
-* `/extract` accepts supported audio files
-* audio is decoded and resampled
-* quality metrics are computed
-* adaptive VAD is applied
-* acoustic features are extracted
-* speaker segmentation methods are selectable
-* ECAPA V2 speaker diarization works
-* speaker-level features are extracted
-* VoxConverse RTTM-based evaluation works
-* JSON response is returned
-* privacy status is included
-* the Streamlit frontend runs locally and on Hugging Face
-* raw audio is not permanently stored
-
----
-
-## Team Members
-
-* Sikeh Gisele Wiykiynyuy
-* Tivdzua Lubem Noah
+- the API starts successfully;
+- `/health` returns OK;
+- `/extract` accepts supported audio files;
+- unsupported formats are rejected;
+- audio is decoded and resampled;
+- audio quality metrics are computed;
+- adaptive VAD is applied;
+- basic acoustic features are extracted;
+- advanced acoustic features are extracted;
+- speaker segmentation methods are selectable;
+- ECAPA V2 diarization works;
+- speaker-level features are extracted;
+- RTTM-based evaluation works;
+- bootstrap evaluation over 73 files works;
+- JSON responses are returned;
+- privacy status is included;
+- the Streamlit frontend runs locally and on Hugging Face;
+- raw audio is not permanently stored.
 
 ---
 
-## Course
+## Final Project Summary
 
-Software System Development Using State-of-the-Art Artificial Intelligence Technologies
+Voice Genetics is a working privacy-aware acoustic feature extraction and speaker diarization system. It provides a FastAPI backend, Streamlit frontend, multiple speaker segmentation methods, full acoustic feature extraction, reference-based diarization evaluation, and bootstrap-based final reporting.
+
+The final 73-file VoxConverse evaluation shows that Method 3B performs well on many files, with 41 out of 73 files below 10% DER and a median DER of 8.02%. The bootstrap mean DER is 21.44% ± 6.37%, mainly affected by difficult outliers with speaker confusion, false alarms, and cluster imbalance.
+
+The system is therefore successful as a complete software product and evaluation pipeline, while the remaining work is mainly improving diarization robustness and runtime efficiency.
