@@ -1,0 +1,1621 @@
+{
+  "filename": "paibn.wav",
+  "quality_metrics": {
+    "duration_seconds": 341.891,
+    "sample_rate": 16000,
+    "rms_energy": 0.085085,
+    "peak_amplitude": 0.713684,
+    "clipping_rate": 0.0
+  },
+  "voice_activity": {
+    "enabled": true,
+    "method": "librosa_split_rms_guard_adaptive",
+    "adaptive_vad_enabled": true,
+    "adaptive_reason": "normal_audio_using_requested_min_rms",
+    "speech_regions": [
+      {
+        "start": 0.032,
+        "end": 35.968,
+        "duration": 35.936,
+        "rms": 0.083125
+      },
+      {
+        "start": 37.216,
+        "end": 122.592,
+        "duration": 85.376,
+        "rms": 0.084594
+      },
+      {
+        "start": 123.872,
+        "end": 280.928,
+        "duration": 157.056,
+        "rms": 0.088185
+      },
+      {
+        "start": 281.76,
+        "end": 340.672,
+        "duration": 58.912,
+        "rms": 0.08182
+      }
+    ],
+    "removed_non_speech_segments": [
+      {
+        "start": 0.0,
+        "end": 0.032,
+        "duration": 0.032,
+        "reason": "leading_non_speech"
+      },
+      {
+        "start": 35.968,
+        "end": 37.216,
+        "duration": 1.248,
+        "reason": "vad_gap_or_pause"
+      },
+      {
+        "start": 122.592,
+        "end": 123.872,
+        "duration": 1.28,
+        "reason": "vad_gap_or_pause"
+      },
+      {
+        "start": 280.928,
+        "end": 281.76,
+        "duration": 0.832,
+        "reason": "vad_gap_or_pause"
+      },
+      {
+        "start": 340.672,
+        "end": 341.891,
+        "duration": 1.219,
+        "reason": "trailing_non_speech"
+      },
+      {
+        "start": 11.52,
+        "end": 11.648,
+        "duration": 0.128,
+        "rms": 0.01278,
+        "reason": "region_too_short"
+      },
+      {
+        "start": 102.56,
+        "end": 102.688,
+        "duration": 0.128,
+        "rms": 0.008441,
+        "reason": "region_too_short"
+      },
+      {
+        "start": 123.456,
+        "end": 123.776,
+        "duration": 0.32,
+        "rms": 0.012241,
+        "reason": "region_rms_below_threshold"
+      },
+      {
+        "start": 162.4,
+        "end": 162.592,
+        "duration": 0.192,
+        "rms": 0.010149,
+        "reason": "region_too_short"
+      },
+      {
+        "start": 286.368,
+        "end": 286.496,
+        "duration": 0.128,
+        "rms": 0.011389,
+        "reason": "region_too_short"
+      },
+      {
+        "start": 340.704,
+        "end": 340.864,
+        "duration": 0.16,
+        "rms": 0.008995,
+        "reason": "region_too_short"
+      }
+    ],
+    "speech_region_count": 4,
+    "removed_non_speech_count": 11,
+    "speech_duration_seconds": 337.28,
+    "non_speech_duration_seconds": 4.611,
+    "speech_coverage_ratio": 0.9865,
+    "audio_duration_seconds": 341.891,
+    "top_db": 30.0,
+    "requested_min_rms": 0.015,
+    "effective_min_rms": 0.015,
+    "min_rms": 0.015,
+    "min_region_duration_seconds": 0.25,
+    "merge_gap_seconds": 0.8,
+    "global_rms": 0.085085
+  },
+  "preprocessing_metrics": {
+    "original_duration_seconds": 337.28,
+    "processed_duration_seconds": 328.8,
+    "removed_silence_seconds": 8.48,
+    "removed_silence_percentage": 2.51,
+    "speech_region_count": 25,
+    "removed_non_speech_count": 28,
+    "speech_regions": [
+      {
+        "start": 0.0,
+        "end": 5.76,
+        "duration": 5.76,
+        "rms": 0.078671
+      },
+      {
+        "start": 6.432,
+        "end": 11.424,
+        "duration": 4.992,
+        "rms": 0.0833
+      },
+      {
+        "start": 11.904,
+        "end": 14.304,
+        "duration": 2.4,
+        "rms": 0.073434
+      },
+      {
+        "start": 14.56,
+        "end": 25.024,
+        "duration": 10.464,
+        "rms": 0.090525
+      },
+      {
+        "start": 25.312,
+        "end": 27.648,
+        "duration": 2.336,
+        "rms": 0.082357
+      },
+      {
+        "start": 27.968,
+        "end": 30.272,
+        "duration": 2.304,
+        "rms": 0.091072
+      },
+      {
+        "start": 30.496,
+        "end": 34.528,
+        "duration": 4.032,
+        "rms": 0.099927
+      },
+      {
+        "start": 34.848,
+        "end": 85.952,
+        "duration": 51.104,
+        "rms": 0.084832
+      },
+      {
+        "start": 86.336,
+        "end": 93.12,
+        "duration": 6.784,
+        "rms": 0.089727
+      },
+      {
+        "start": 93.376,
+        "end": 93.792,
+        "duration": 0.416,
+        "rms": 0.089708
+      },
+      {
+        "start": 94.048,
+        "end": 95.584,
+        "duration": 1.536,
+        "rms": 0.086797
+      },
+      {
+        "start": 95.872,
+        "end": 99.136,
+        "duration": 3.264,
+        "rms": 0.09106
+      },
+      {
+        "start": 99.616,
+        "end": 101.216,
+        "duration": 1.6,
+        "rms": 0.087656
+      },
+      {
+        "start": 101.44,
+        "end": 102.944,
+        "duration": 1.504,
+        "rms": 0.073665
+      },
+      {
+        "start": 103.264,
+        "end": 104.384,
+        "duration": 1.12,
+        "rms": 0.079324
+      },
+      {
+        "start": 104.704,
+        "end": 109.568,
+        "duration": 4.864,
+        "rms": 0.090045
+      },
+      {
+        "start": 109.952,
+        "end": 119.872,
+        "duration": 9.92,
+        "rms": 0.086159
+      },
+      {
+        "start": 120.096,
+        "end": 159.808,
+        "duration": 39.712,
+        "rms": 0.090753
+      },
+      {
+        "start": 160.064,
+        "end": 186.592,
+        "duration": 26.528,
+        "rms": 0.089451
+      },
+      {
+        "start": 187.104,
+        "end": 190.24,
+        "duration": 3.136,
+        "rms": 0.08815
+      },
+      {
+        "start": 190.912,
+        "end": 261.76,
+        "duration": 70.848,
+        "rms": 0.087771
+      },
+      {
+        "start": 261.984,
+        "end": 271.68,
+        "duration": 9.696,
+        "rms": 0.086683
+      },
+      {
+        "start": 272.064,
+        "end": 282.688,
+        "duration": 10.624,
+        "rms": 0.089525
+      },
+      {
+        "start": 283.168,
+        "end": 295.52,
+        "duration": 12.352,
+        "rms": 0.084938
+      },
+      {
+        "start": 295.776,
+        "end": 337.28,
+        "duration": 41.504,
+        "rms": 0.080529
+      }
+    ],
+    "removed_non_speech_segments": [
+      {
+        "start": 5.76,
+        "end": 6.432,
+        "duration": 0.672,
+        "reason": "vad_gap_or_pause"
+      },
+      {
+        "start": 11.424,
+        "end": 11.904,
+        "duration": 0.48,
+        "reason": "vad_gap_or_pause"
+      },
+      {
+        "start": 14.304,
+        "end": 14.56,
+        "duration": 0.256,
+        "reason": "vad_gap_or_pause"
+      },
+      {
+        "start": 25.024,
+        "end": 25.312,
+        "duration": 0.288,
+        "reason": "vad_gap_or_pause"
+      },
+      {
+        "start": 27.648,
+        "end": 27.968,
+        "duration": 0.32,
+        "reason": "vad_gap_or_pause"
+      },
+      {
+        "start": 30.272,
+        "end": 30.496,
+        "duration": 0.224,
+        "reason": "vad_gap_or_pause"
+      },
+      {
+        "start": 34.528,
+        "end": 34.848,
+        "duration": 0.32,
+        "reason": "vad_gap_or_pause"
+      },
+      {
+        "start": 85.952,
+        "end": 86.336,
+        "duration": 0.384,
+        "reason": "vad_gap_or_pause"
+      },
+      {
+        "start": 93.12,
+        "end": 93.376,
+        "duration": 0.256,
+        "reason": "vad_gap_or_pause"
+      },
+      {
+        "start": 93.792,
+        "end": 94.048,
+        "duration": 0.256,
+        "reason": "vad_gap_or_pause"
+      },
+      {
+        "start": 95.584,
+        "end": 95.872,
+        "duration": 0.288,
+        "reason": "vad_gap_or_pause"
+      },
+      {
+        "start": 99.136,
+        "end": 99.616,
+        "duration": 0.48,
+        "reason": "vad_gap_or_pause"
+      },
+      {
+        "start": 101.216,
+        "end": 101.44,
+        "duration": 0.224,
+        "reason": "vad_gap_or_pause"
+      },
+      {
+        "start": 102.944,
+        "end": 103.264,
+        "duration": 0.32,
+        "reason": "vad_gap_or_pause"
+      },
+      {
+        "start": 104.384,
+        "end": 104.704,
+        "duration": 0.32,
+        "reason": "vad_gap_or_pause"
+      },
+      {
+        "start": 109.568,
+        "end": 109.952,
+        "duration": 0.384,
+        "reason": "vad_gap_or_pause"
+      },
+      {
+        "start": 119.872,
+        "end": 120.096,
+        "duration": 0.224,
+        "reason": "vad_gap_or_pause"
+      },
+      {
+        "start": 159.808,
+        "end": 160.064,
+        "duration": 0.256,
+        "reason": "vad_gap_or_pause"
+      },
+      {
+        "start": 186.592,
+        "end": 187.104,
+        "duration": 0.512,
+        "reason": "vad_gap_or_pause"
+      },
+      {
+        "start": 190.24,
+        "end": 190.912,
+        "duration": 0.672,
+        "reason": "vad_gap_or_pause"
+      },
+      {
+        "start": 261.76,
+        "end": 261.984,
+        "duration": 0.224,
+        "reason": "vad_gap_or_pause"
+      },
+      {
+        "start": 271.68,
+        "end": 272.064,
+        "duration": 0.384,
+        "reason": "vad_gap_or_pause"
+      },
+      {
+        "start": 282.688,
+        "end": 283.168,
+        "duration": 0.48,
+        "reason": "vad_gap_or_pause"
+      },
+      {
+        "start": 295.52,
+        "end": 295.776,
+        "duration": 0.256,
+        "reason": "vad_gap_or_pause"
+      },
+      {
+        "start": 11.488,
+        "end": 11.616,
+        "duration": 0.128,
+        "rms": 0.01278,
+        "reason": "region_too_short"
+      },
+      {
+        "start": 101.28,
+        "end": 101.408,
+        "duration": 0.128,
+        "rms": 0.008441,
+        "reason": "region_too_short"
+      },
+      {
+        "start": 159.84,
+        "end": 160.032,
+        "duration": 0.192,
+        "rms": 0.010149,
+        "reason": "region_too_short"
+      },
+      {
+        "start": 282.976,
+        "end": 283.104,
+        "duration": 0.128,
+        "rms": 0.011389,
+        "reason": "region_too_short"
+      }
+    ]
+  },
+  "speaker_segmentation": {
+    "enabled": true,
+    "method": "ecapa_v2_full_pipeline",
+    "message": "Method 3B improved ECAPA pipeline: central/adaptive VAD, overlapping chunks, ECAPA-TDNN speaker embeddings, optional automatic speaker-count estimation, clustering, isolated-label smoothing, short-segment merging, and clustering metrics.",
+    "segmentation_source": "automatic",
+    "automatic_method_used": true,
+    "detected_speakers": 3,
+    "speaker_speech_duration_seconds": {
+      "speaker_1": 94.368,
+      "speaker_2": 232.5,
+      "speaker_3": 10.412
+    },
+    "speaker_segment_count": {
+      "speaker_1": 4,
+      "speaker_2": 4,
+      "speaker_3": 1
+    },
+    "overlap_warning": "current_pipeline_assigns_overlap_to_one_cluster",
+    "low_confidence_warning": false,
+    "speaker_segments": [
+      {
+        "speaker": "speaker_1",
+        "start": 0.032,
+        "end": 35.968,
+        "duration": 35.936,
+        "confidence": 0.8568,
+        "rms": 0.082459,
+        "padded_for_embedding": false
+      },
+      {
+        "speaker": "speaker_2",
+        "start": 37.216,
+        "end": 94.716,
+        "duration": 57.5,
+        "confidence": 0.8687,
+        "rms": 0.084731,
+        "padded_for_embedding": false
+      },
+      {
+        "speaker": "speaker_1",
+        "start": 94.716,
+        "end": 122.592,
+        "duration": 27.876,
+        "confidence": 0.8595,
+        "rms": 0.082363,
+        "padded_for_embedding": false
+      },
+      {
+        "speaker": "speaker_2",
+        "start": 123.872,
+        "end": 185.372,
+        "duration": 61.5,
+        "confidence": 0.8946,
+        "rms": 0.089943,
+        "padded_for_embedding": false
+      },
+      {
+        "speaker": "speaker_1",
+        "start": 185.372,
+        "end": 194.372,
+        "duration": 9.0,
+        "confidence": 0.8555,
+        "rms": 0.081786,
+        "padded_for_embedding": false
+      },
+      {
+        "speaker": "speaker_2",
+        "start": 194.372,
+        "end": 259.372,
+        "duration": 65.0,
+        "confidence": 0.8844,
+        "rms": 0.087388,
+        "padded_for_embedding": false
+      },
+      {
+        "speaker": "speaker_1",
+        "start": 259.372,
+        "end": 280.928,
+        "duration": 21.556,
+        "confidence": 0.864,
+        "rms": 0.085847,
+        "padded_for_embedding": false
+      },
+      {
+        "speaker": "speaker_2",
+        "start": 281.76,
+        "end": 330.26,
+        "duration": 48.5,
+        "confidence": 0.871,
+        "rms": 0.088249,
+        "padded_for_embedding": false
+      },
+      {
+        "speaker": "speaker_3",
+        "start": 330.26,
+        "end": 340.672,
+        "duration": 10.412,
+        "confidence": 0.9104,
+        "rms": 0.033676,
+        "padded_for_embedding": false
+      }
+    ],
+    "diarization_pipeline_version": "method3b_ecapa_overlap_vad_smoothing_auto_k",
+    "chunk_duration_seconds": 2.0,
+    "chunk_hop_seconds": 1.0,
+    "expected_speakers_requested": 3,
+    "expected_speakers": 3,
+    "auto_detect_speakers": false,
+    "speaker_count_estimation": {
+      "enabled": false,
+      "reason": "manual_expected_speakers_used",
+      "selected_k": 3
+    },
+    "usable_speech_chunks": 335,
+    "padded_short_chunks": 0,
+    "short_region_padding_enabled": true,
+    "minimum_kept_region_seconds": 0.25,
+    "removed_pause_chunks": 5,
+    "removed_pause_segments": [
+      {
+        "start": 0.0,
+        "end": 0.032,
+        "duration": 0.032,
+        "reason": "leading_non_speech_from_central_vad"
+      },
+      {
+        "start": 35.968,
+        "end": 37.216,
+        "duration": 1.248,
+        "reason": "central_vad_gap_or_pause"
+      },
+      {
+        "start": 122.592,
+        "end": 123.872,
+        "duration": 1.28,
+        "reason": "central_vad_gap_or_pause"
+      },
+      {
+        "start": 280.928,
+        "end": 281.76,
+        "duration": 0.832,
+        "reason": "central_vad_gap_or_pause"
+      },
+      {
+        "start": 340.672,
+        "end": 341.891,
+        "duration": 1.219,
+        "reason": "trailing_non_speech_from_central_vad"
+      }
+    ],
+    "audio_duration_seconds": 341.891,
+    "uses_central_vad_regions": true,
+    "central_vad_speech_region_count": 4,
+    "central_vad_speech_duration_seconds": 337.28,
+    "central_vad_speech_coverage_ratio": 0.9865,
+    "embedding_model": "speechbrain/spkrec-ecapa-voxceleb",
+    "embedding_type": "ECAPA-TDNN speaker embedding",
+    "embedding_normalization": "l2",
+    "clustering_backend": "agglomerative_cosine_average_linkage",
+    "smoothing_passes": 1,
+    "labels_changed_by_smoothing": 0,
+    "short_segment_merging_enabled": true,
+    "min_segment_duration_seconds": 1.0,
+    "short_segments_before_merging": 0,
+    "merge_gap_seconds": 0.3,
+    "mean_cluster_confidence": 0.8754,
+    "min_cluster_confidence": 0.7261,
+    "cluster_balance_warning": true,
+    "clustering_metrics": {
+      "enabled": true,
+      "metric_scope": "internal_clustering_quality_without_manual_labels",
+      "representation": "ecapa_tdnn_l2_normalized_embeddings_method3b",
+      "number_of_chunks_clustered": 335,
+      "number_of_clusters": 3,
+      "cluster_counts": {
+        "cluster_0": 231,
+        "cluster_1": 10,
+        "cluster_2": 94
+      },
+      "cluster_percentages": {
+        "cluster_0": 0.6896,
+        "cluster_1": 0.0299,
+        "cluster_2": 0.2806
+      },
+      "min_cluster_size": 10,
+      "max_cluster_size": 231,
+      "cluster_balance_ratio": 0.0433,
+      "speaker_switches": 8,
+      "segment_smoothness": 0.976,
+      "merged_segment_count": 9,
+      "mean_segment_duration_seconds": 37.476,
+      "median_segment_duration_seconds": 35.936,
+      "shortest_segment_duration_seconds": 9.0,
+      "longest_segment_duration_seconds": 65.0,
+      "silhouette_score": 0.4585,
+      "silhouette_note": "",
+      "interpretation": {
+        "silhouette_score": "Higher is better. It checks whether chunks inside the same cluster are similar and chunks from different clusters are separated.",
+        "cluster_balance_ratio": "Closer to 1.0 means more balanced speaker clusters. Very low values may indicate one dominant speaker cluster or a clustering problem.",
+        "speaker_switches": "Lower is usually smoother. Many switches may indicate unstable diarization.",
+        "segment_smoothness": "Closer to 1.0 means fewer rapid speaker-label changes across chunks."
+      }
+    },
+    "limitations_addressed": {
+      "expected_speakers_required": "partly_addressed_by_optional_auto_detect_speakers",
+      "fixed_chunking": "addressed_by_overlapping_chunks",
+      "cluster_imbalance": "partly_addressed_by_balance_metrics_and_warnings",
+      "false_alarms_and_pauses": "addressed_by_central_adaptive_vad_and_pause_segments",
+      "unstable_switches": "addressed_by_smoothing_and_short_segment_merging",
+      "internal_der_only": "partly_addressed_in_evaluation_py_with_optional_pyannote_metrics"
+    },
+    "important_note": "Speaker names are anonymous cluster labels. Compare predicted speakers with manual/RTTM references using label mapping, not by assuming speaker_1 is always the same real person."
+  },
+  "diarization_evaluation": {
+    "enabled": true,
+    "method": "frame_based_permutation_invariant_diarization_evaluation",
+    "frame_step_seconds": 0.1,
+    "audio_duration_seconds": 341.891,
+    "speaker_mapping_predicted_to_reference": {
+      "speaker_1": "spk02",
+      "speaker_2": "spk01",
+      "speaker_3": "spk00"
+    },
+    "reference_speaker_durations_seconds": {
+      "spk00": 10.84,
+      "spk02": 94.4,
+      "spk01": 231.96
+    },
+    "predicted_speaker_durations_seconds": {
+      "speaker_1": 94.368,
+      "speaker_2": 232.5,
+      "speaker_3": 10.412
+    },
+    "reference_segment_count": 12,
+    "predicted_segment_count": 9,
+    "reference_speaker_segment_count": {
+      "spk00": 1,
+      "spk02": 7,
+      "spk01": 4
+    },
+    "predicted_speaker_segment_count": {
+      "speaker_1": 4,
+      "speaker_2": 4,
+      "speaker_3": 1
+    },
+    "time_metrics_seconds": {
+      "reference_speech": 337.1,
+      "predicted_speech": 337.6,
+      "overlapped_speech": 336.4,
+      "correct_speaker": 334.8,
+      "missed_speech": 0.7,
+      "false_alarm": 1.2,
+      "speaker_confusion": 1.6,
+      "diarization_error": 3.5,
+      "reference_non_speech": 4.8,
+      "correct_non_speech": 3.6
+    },
+    "rate_metrics": {
+      "der": 0.0104,
+      "der_percent": 1.04,
+      "speech_precision": 0.9964,
+      "speech_recall": 0.9979,
+      "speaker_assignment_accuracy_on_overlap": 0.9952,
+      "speaker_assignment_accuracy_on_reference": 0.9932,
+      "pause_detection_accuracy": 0.75
+    },
+    "speaker_duration_error": {
+      "per_speaker": {
+        "spk00": {
+          "reference_duration_seconds": 10.84,
+          "mapped_predicted_duration_seconds": 10.412,
+          "signed_error_seconds": -0.428,
+          "absolute_error_seconds": 0.428
+        },
+        "spk02": {
+          "reference_duration_seconds": 94.4,
+          "mapped_predicted_duration_seconds": 94.368,
+          "signed_error_seconds": -0.032,
+          "absolute_error_seconds": 0.032
+        },
+        "spk01": {
+          "reference_duration_seconds": 231.96,
+          "mapped_predicted_duration_seconds": 232.5,
+          "signed_error_seconds": 0.54,
+          "absolute_error_seconds": 0.54
+        }
+      },
+      "total_reference_duration_seconds": 337.2,
+      "total_mapped_predicted_duration_seconds": 337.28,
+      "total_signed_error_seconds": 0.08,
+      "total_absolute_error_seconds": 0.08
+    },
+    "boundary_metrics": {
+      "reference_boundary_count": 8,
+      "predicted_boundary_count": 8,
+      "mean_nearest_boundary_error_seconds": 0.212,
+      "median_nearest_boundary_error_seconds": 0.186,
+      "max_nearest_boundary_error_seconds": 0.452,
+      "nearest_boundary_errors_seconds": [
+        0.068,
+        0.156,
+        0.068,
+        0.452,
+        0.108,
+        0.408,
+        0.216,
+        0.22
+      ]
+    },
+    "standard_der_pyannote": {
+      "enabled": false,
+      "available": false,
+      "message": "Not requested. Set use_pyannote_metrics=true to try standard DER."
+    },
+    "important_note": "DER combines missed speech, false alarm, and speaker confusion. Speaker labels are matched before scoring, so predicted speaker_1 does not need to equal reference speaker_1."
+  },
+  "runtime_metrics": {
+    "total_processing_seconds": 1318.437,
+    "speaker_processing_seconds": 838.8934,
+    "evaluation_processing_seconds": 0.0056
+  },
+  "features": {
+    "duration_seconds": 328.8,
+    "mfcc": {
+      "mean": [
+        -204.57188415527344,
+        63.55624008178711,
+        -5.390860080718994,
+        36.14720153808594,
+        -11.322810173034668,
+        -12.744620323181152,
+        -15.521479606628418,
+        -12.619589805603027,
+        -6.465700149536133,
+        -9.063719749450684,
+        -6.663050174713135,
+        -9.610859870910645,
+        -3.0989298820495605
+      ],
+      "std": [
+        72.30655670166016,
+        64.45263671875,
+        44.68341827392578,
+        37.93722915649414,
+        24.749820709228516,
+        17.309900283813477,
+        15.890020370483398,
+        15.868720054626465,
+        12.885890007019043,
+        11.045929908752441,
+        10.115260124206543,
+        10.996270179748535,
+        10.362369537353516
+      ]
+    },
+    "spectral_centroid": {
+      "mean": 2077.84842,
+      "std": 1189.60502
+    },
+    "pitch": {
+      "mean_hz": 232.378,
+      "min_hz": 65.406,
+      "max_hz": 1005.032
+    },
+    "advanced_acoustic_features": {
+      "formants": {
+        "method": "lpc_roots",
+        "available": true,
+        "note": "Approximate LPC-based formant estimates. More reliable formants would require Praat/parselmouth.",
+        "F1_hz": {
+          "mean": 967.587368,
+          "median": 645.522903,
+          "std": 718.469096,
+          "min": 91.613909,
+          "max": 3710.261886
+        },
+        "F2_hz": {
+          "mean": 2337.508171,
+          "median": 2278.730712,
+          "std": 678.804766,
+          "min": 528.068925,
+          "max": 5386.252877
+        },
+        "F3_hz": {
+          "mean": 3511.873964,
+          "median": 3311.734513,
+          "std": 665.413696,
+          "min": 1528.027702,
+          "max": 5498.853842
+        },
+        "frames_used": 10270
+      },
+      "jitter_shimmer": {
+        "available": true,
+        "method": "frame_level_f0_rms_proxy",
+        "note": "Approximate jitter/shimmer from frame-level f0 and RMS, not cycle-exact Praat measurements.",
+        "voiced_frame_count": 7842,
+        "jitter_local": 0.043772,
+        "jitter_local_percent": 4.37719,
+        "shimmer_local": 0.14438,
+        "shimmer_local_percent": 14.438033
+      },
+      "harmonic_to_noise_ratio": {
+        "available": true,
+        "method": "harmonic_residual_energy_ratio",
+        "hnr_db": -0.316535,
+        "harmonic_energy": 14498.070124,
+        "noise_residual_energy": 15594.222837,
+        "note": "Approximate HNR proxy based on harmonic separation, not Praat HNR."
+      },
+      "speaking_rate": {
+        "available": true,
+        "method": "rms_envelope_peak_proxy",
+        "note": "Speaking rate proxy from syllable-like RMS peaks. True speaking rate requires transcript or syllable labels.",
+        "estimated_syllable_nuclei_count": 937,
+        "estimated_syllable_rate_per_second": 2.849756,
+        "estimated_syllable_rate_per_minute": 170.985369
+      },
+      "voice_onset_time": {
+        "available": true,
+        "method": "energy_onset_to_first_voiced_frame_proxy",
+        "note": "This is not true phonetic VOT. True VOT needs stop-consonant boundaries or forced alignment.",
+        "estimated_vot_ms": {
+          "mean": 60.444444,
+          "median": 32.0,
+          "std": 94.980596,
+          "min": 0.0,
+          "max": 384.0
+        },
+        "events_used": 45
+      }
+    }
+  },
+  "speaker_features": {
+    "speaker_1": {
+      "preprocessing_metrics": {
+        "original_duration_seconds": 94.368,
+        "processed_duration_seconds": 87.84,
+        "removed_silence_seconds": 6.528,
+        "removed_silence_percentage": 6.92,
+        "speech_region_count": 20,
+        "removed_non_speech_count": 20,
+        "speech_regions": [
+          {
+            "start": 0.0,
+            "end": 5.76,
+            "duration": 5.76,
+            "rms": 0.078671
+          },
+          {
+            "start": 6.432,
+            "end": 11.616,
+            "duration": 5.184,
+            "rms": 0.08177
+          },
+          {
+            "start": 11.904,
+            "end": 14.304,
+            "duration": 2.4,
+            "rms": 0.073434
+          },
+          {
+            "start": 14.56,
+            "end": 25.024,
+            "duration": 10.464,
+            "rms": 0.090525
+          },
+          {
+            "start": 25.312,
+            "end": 27.648,
+            "duration": 2.336,
+            "rms": 0.082357
+          },
+          {
+            "start": 27.968,
+            "end": 30.272,
+            "duration": 2.304,
+            "rms": 0.091072
+          },
+          {
+            "start": 30.496,
+            "end": 34.528,
+            "duration": 4.032,
+            "rms": 0.099927
+          },
+          {
+            "start": 34.848,
+            "end": 36.32,
+            "duration": 1.472,
+            "rms": 0.070628
+          },
+          {
+            "start": 36.544,
+            "end": 38.08,
+            "duration": 1.536,
+            "rms": 0.086797
+          },
+          {
+            "start": 38.368,
+            "end": 41.632,
+            "duration": 3.264,
+            "rms": 0.09106
+          },
+          {
+            "start": 42.112,
+            "end": 43.712,
+            "duration": 1.6,
+            "rms": 0.087656
+          },
+          {
+            "start": 43.936,
+            "end": 45.44,
+            "duration": 1.504,
+            "rms": 0.073665
+          },
+          {
+            "start": 45.76,
+            "end": 46.912,
+            "duration": 1.152,
+            "rms": 0.078215
+          },
+          {
+            "start": 47.2,
+            "end": 52.064,
+            "duration": 4.864,
+            "rms": 0.090045
+          },
+          {
+            "start": 52.448,
+            "end": 62.368,
+            "duration": 9.92,
+            "rms": 0.086159
+          },
+          {
+            "start": 62.592,
+            "end": 67.616,
+            "duration": 5.024,
+            "rms": 0.088131
+          },
+          {
+            "start": 68.096,
+            "end": 71.232,
+            "duration": 3.136,
+            "rms": 0.08815
+          },
+          {
+            "start": 71.904,
+            "end": 77.76,
+            "duration": 5.856,
+            "rms": 0.088355
+          },
+          {
+            "start": 77.984,
+            "end": 87.712,
+            "duration": 9.728,
+            "rms": 0.086541
+          },
+          {
+            "start": 88.064,
+            "end": 94.368,
+            "duration": 6.304,
+            "rms": 0.088207
+          }
+        ],
+        "removed_non_speech_segments": [
+          {
+            "start": 5.76,
+            "end": 6.432,
+            "duration": 0.672,
+            "reason": "vad_gap_or_pause"
+          },
+          {
+            "start": 11.616,
+            "end": 11.904,
+            "duration": 0.288,
+            "reason": "vad_gap_or_pause"
+          },
+          {
+            "start": 14.304,
+            "end": 14.56,
+            "duration": 0.256,
+            "reason": "vad_gap_or_pause"
+          },
+          {
+            "start": 25.024,
+            "end": 25.312,
+            "duration": 0.288,
+            "reason": "vad_gap_or_pause"
+          },
+          {
+            "start": 27.648,
+            "end": 27.968,
+            "duration": 0.32,
+            "reason": "vad_gap_or_pause"
+          },
+          {
+            "start": 30.272,
+            "end": 30.496,
+            "duration": 0.224,
+            "reason": "vad_gap_or_pause"
+          },
+          {
+            "start": 34.528,
+            "end": 34.848,
+            "duration": 0.32,
+            "reason": "vad_gap_or_pause"
+          },
+          {
+            "start": 36.32,
+            "end": 36.544,
+            "duration": 0.224,
+            "reason": "vad_gap_or_pause"
+          },
+          {
+            "start": 38.08,
+            "end": 38.368,
+            "duration": 0.288,
+            "reason": "vad_gap_or_pause"
+          },
+          {
+            "start": 41.632,
+            "end": 42.112,
+            "duration": 0.48,
+            "reason": "vad_gap_or_pause"
+          },
+          {
+            "start": 43.712,
+            "end": 43.936,
+            "duration": 0.224,
+            "reason": "vad_gap_or_pause"
+          },
+          {
+            "start": 45.44,
+            "end": 45.76,
+            "duration": 0.32,
+            "reason": "vad_gap_or_pause"
+          },
+          {
+            "start": 46.912,
+            "end": 47.2,
+            "duration": 0.288,
+            "reason": "vad_gap_or_pause"
+          },
+          {
+            "start": 52.064,
+            "end": 52.448,
+            "duration": 0.384,
+            "reason": "vad_gap_or_pause"
+          },
+          {
+            "start": 62.368,
+            "end": 62.592,
+            "duration": 0.224,
+            "reason": "vad_gap_or_pause"
+          },
+          {
+            "start": 67.616,
+            "end": 68.096,
+            "duration": 0.48,
+            "reason": "vad_gap_or_pause"
+          },
+          {
+            "start": 71.232,
+            "end": 71.904,
+            "duration": 0.672,
+            "reason": "vad_gap_or_pause"
+          },
+          {
+            "start": 77.76,
+            "end": 77.984,
+            "duration": 0.224,
+            "reason": "vad_gap_or_pause"
+          },
+          {
+            "start": 87.712,
+            "end": 88.064,
+            "duration": 0.352,
+            "reason": "vad_gap_or_pause"
+          },
+          {
+            "start": 43.776,
+            "end": 43.904,
+            "duration": 0.128,
+            "rms": 0.008433,
+            "reason": "region_too_short"
+          }
+        ]
+      },
+      "features": {
+        "duration_seconds": 87.84,
+        "mfcc": {
+          "mean": [
+            -192.95916748046875,
+            64.9309310913086,
+            -8.419059753417969,
+            7.359449863433838,
+            -12.16427993774414,
+            -14.547019958496094,
+            -20.74367904663086,
+            -7.951819896697998,
+            -7.433060169219971,
+            -9.588890075683594,
+            -3.7036800384521484,
+            -14.62759017944336,
+            0.43514999747276306
+          ],
+          "std": [
+            65.94152069091797,
+            46.87335968017578,
+            46.28572082519531,
+            24.690200805664062,
+            20.83802032470703,
+            17.774690628051758,
+            15.862580299377441,
+            14.600069999694824,
+            13.494330406188965,
+            10.253470420837402,
+            10.372909545898438,
+            11.149689674377441,
+            10.065990447998047
+          ]
+        },
+        "spectral_centroid": {
+          "mean": 2175.48693,
+          "std": 1212.9892
+        },
+        "pitch": {
+          "mean_hz": 232.589,
+          "min_hz": 117.216,
+          "max_hz": 440.0
+        },
+        "advanced_acoustic_features": {
+          "formants": {
+            "method": "lpc_roots",
+            "available": true,
+            "note": "Approximate LPC-based formant estimates. More reliable formants would require Praat/parselmouth.",
+            "F1_hz": {
+              "mean": 823.107659,
+              "median": 634.902082,
+              "std": 532.483865,
+              "min": 97.470206,
+              "max": 3710.261886
+            },
+            "F2_hz": {
+              "mean": 2221.595819,
+              "median": 2092.725347,
+              "std": 694.753735,
+              "min": 586.993026,
+              "max": 5318.090835
+            },
+            "F3_hz": {
+              "mean": 3465.911103,
+              "median": 3191.418211,
+              "std": 723.876186,
+              "min": 1672.717376,
+              "max": 5492.623478
+            },
+            "frames_used": 2742
+          },
+          "jitter_shimmer": {
+            "available": true,
+            "method": "frame_level_f0_rms_proxy",
+            "note": "Approximate jitter/shimmer from frame-level f0 and RMS, not cycle-exact Praat measurements.",
+            "voiced_frame_count": 2353,
+            "jitter_local": 0.037005,
+            "jitter_local_percent": 3.700516,
+            "shimmer_local": 0.151453,
+            "shimmer_local_percent": 15.145304
+          },
+          "harmonic_to_noise_ratio": {
+            "available": true,
+            "method": "harmonic_residual_energy_ratio",
+            "hnr_db": -0.435878,
+            "harmonic_energy": 3772.284657,
+            "noise_residual_energy": 4170.539291,
+            "note": "Approximate HNR proxy based on harmonic separation, not Praat HNR."
+          },
+          "speaking_rate": {
+            "available": true,
+            "method": "rms_envelope_peak_proxy",
+            "note": "Speaking rate proxy from syllable-like RMS peaks. True speaking rate requires transcript or syllable labels.",
+            "estimated_syllable_nuclei_count": 255,
+            "estimated_syllable_rate_per_second": 2.903005,
+            "estimated_syllable_rate_per_minute": 174.180328
+          },
+          "voice_onset_time": {
+            "available": true,
+            "method": "energy_onset_to_first_voiced_frame_proxy",
+            "note": "This is not true phonetic VOT. True VOT needs stop-consonant boundaries or forced alignment.",
+            "estimated_vot_ms": {
+              "mean": 44.307692,
+              "median": 32.0,
+              "std": 64.659326,
+              "min": 0.0,
+              "max": 192.0
+            },
+            "events_used": 13
+          }
+        }
+      }
+    },
+    "speaker_2": {
+      "preprocessing_metrics": {
+        "original_duration_seconds": 232.5,
+        "processed_duration_seconds": 230.432,
+        "removed_silence_seconds": 2.068,
+        "removed_silence_percentage": 0.89,
+        "speech_region_count": 6,
+        "removed_non_speech_count": 9,
+        "speech_regions": [
+          {
+            "start": 0.0,
+            "end": 50.016,
+            "duration": 50.016,
+            "rms": 0.085272
+          },
+          {
+            "start": 50.4,
+            "end": 57.184,
+            "duration": 6.784,
+            "rms": 0.089727
+          },
+          {
+            "start": 57.44,
+            "end": 95.968,
+            "duration": 38.528,
+            "rms": 0.090718
+          },
+          {
+            "start": 96.256,
+            "end": 188.32,
+            "duration": 92.064,
+            "rms": 0.088404
+          },
+          {
+            "start": 188.768,
+            "end": 201.152,
+            "duration": 12.384,
+            "rms": 0.084829
+          },
+          {
+            "start": 201.408,
+            "end": 232.064,
+            "duration": 30.656,
+            "rms": 0.091521
+          }
+        ],
+        "removed_non_speech_segments": [
+          {
+            "start": 50.016,
+            "end": 50.4,
+            "duration": 0.384,
+            "reason": "vad_gap_or_pause"
+          },
+          {
+            "start": 57.184,
+            "end": 57.44,
+            "duration": 0.256,
+            "reason": "vad_gap_or_pause"
+          },
+          {
+            "start": 95.968,
+            "end": 96.256,
+            "duration": 0.288,
+            "reason": "vad_gap_or_pause"
+          },
+          {
+            "start": 188.32,
+            "end": 188.768,
+            "duration": 0.448,
+            "reason": "vad_gap_or_pause"
+          },
+          {
+            "start": 201.152,
+            "end": 201.408,
+            "duration": 0.256,
+            "reason": "vad_gap_or_pause"
+          },
+          {
+            "start": 232.064,
+            "end": 232.5,
+            "duration": 0.436,
+            "reason": "trailing_non_speech"
+          },
+          {
+            "start": 96.032,
+            "end": 96.224,
+            "duration": 0.192,
+            "rms": 0.010151,
+            "reason": "region_too_short"
+          },
+          {
+            "start": 188.608,
+            "end": 188.736,
+            "duration": 0.128,
+            "rms": 0.011389,
+            "reason": "region_too_short"
+          },
+          {
+            "start": 232.256,
+            "end": 232.5,
+            "duration": 0.244,
+            "rms": 0.044942,
+            "reason": "region_too_short"
+          }
+        ]
+      },
+      "features": {
+        "duration_seconds": 230.432,
+        "mfcc": {
+          "mean": [
+            -205.52784729003906,
+            62.049720764160156,
+            -4.669680118560791,
+            48.128700256347656,
+            -10.770999908447266,
+            -11.804200172424316,
+            -13.336000442504883,
+            -14.242799758911133,
+            -5.972899913787842,
+            -8.863690376281738,
+            -7.853079795837402,
+            -7.989409923553467,
+            -3.9372398853302
+          ],
+          "std": [
+            73.00395965576172,
+            70.41729736328125,
+            44.163238525390625,
+            35.79890060424805,
+            25.984819412231445,
+            16.944990158081055,
+            15.39186954498291,
+            16.10413932800293,
+            12.586959838867188,
+            11.253179550170898,
+            9.804289817810059,
+            10.34607982635498,
+            9.942520141601562
+          ]
+        },
+        "spectral_centroid": {
+          "mean": 2050.79576,
+          "std": 1179.46808
+        },
+        "pitch": {
+          "mean_hz": 236.271,
+          "min_hz": 65.406,
+          "max_hz": 999.244
+        },
+        "advanced_acoustic_features": {
+          "formants": {
+            "method": "lpc_roots",
+            "available": true,
+            "note": "Approximate LPC-based formant estimates. More reliable formants would require Praat/parselmouth.",
+            "F1_hz": {
+              "mean": 1031.47064,
+              "median": 655.081526,
+              "std": 776.062594,
+              "min": 93.672016,
+              "max": 3116.975911
+            },
+            "F2_hz": {
+              "mean": 2383.093304,
+              "median": 2395.172914,
+              "std": 663.225459,
+              "min": 528.068925,
+              "max": 4842.530173
+            },
+            "F3_hz": {
+              "mean": 3522.415984,
+              "median": 3342.728728,
+              "std": 643.37021,
+              "min": 1528.418995,
+              "max": 5465.820697
+            },
+            "frames_used": 7198
+          },
+          "jitter_shimmer": {
+            "available": true,
+            "method": "frame_level_f0_rms_proxy",
+            "note": "Approximate jitter/shimmer from frame-level f0 and RMS, not cycle-exact Praat measurements.",
+            "voiced_frame_count": 5215,
+            "jitter_local": 0.045722,
+            "jitter_local_percent": 4.572181,
+            "shimmer_local": 0.141551,
+            "shimmer_local_percent": 14.155144
+          },
+          "harmonic_to_noise_ratio": {
+            "available": true,
+            "method": "harmonic_residual_energy_ratio",
+            "hnr_db": -0.25105,
+            "harmonic_energy": 10684.535622,
+            "noise_residual_energy": 11320.371052,
+            "note": "Approximate HNR proxy based on harmonic separation, not Praat HNR."
+          },
+          "speaking_rate": {
+            "available": true,
+            "method": "rms_envelope_peak_proxy",
+            "note": "Speaking rate proxy from syllable-like RMS peaks. True speaking rate requires transcript or syllable labels.",
+            "estimated_syllable_nuclei_count": 657,
+            "estimated_syllable_rate_per_second": 2.851167,
+            "estimated_syllable_rate_per_minute": 171.06999
+          },
+          "voice_onset_time": {
+            "available": true,
+            "method": "energy_onset_to_first_voiced_frame_proxy",
+            "note": "This is not true phonetic VOT. True VOT needs stop-consonant boundaries or forced alignment.",
+            "estimated_vot_ms": {
+              "mean": 66.823529,
+              "median": 0.0,
+              "std": 110.133734,
+              "min": 0.0,
+              "max": 384.0
+            },
+            "events_used": 34
+          }
+        }
+      }
+    },
+    "speaker_3": {
+      "preprocessing_metrics": {
+        "original_duration_seconds": 10.412,
+        "processed_duration_seconds": 10.412,
+        "removed_silence_seconds": 0.0,
+        "removed_silence_percentage": 0.0,
+        "speech_region_count": 1,
+        "removed_non_speech_count": 0,
+        "speech_regions": [
+          {
+            "start": 0.0,
+            "end": 10.412,
+            "duration": 10.412,
+            "rms": 0.033782
+          }
+        ],
+        "removed_non_speech_segments": []
+      },
+      "features": {
+        "duration_seconds": 10.412,
+        "mfcc": {
+          "mean": [
+            -278.72772216796875,
+            86.76982116699219,
+            4.318459987640381,
+            15.514019966125488,
+            -17.13256072998047,
+            -17.057580947875977,
+            -19.65026092529297,
+            -15.415410041809082,
+            -9.66034984588623,
+            -8.709309577941895,
+            -5.926030158996582,
+            -2.786439895629883,
+            -14.5423002243042
+          ],
+          "std": [
+            61.062259674072266,
+            50.17599868774414,
+            39.04349136352539,
+            35.13840103149414,
+            27.296560287475586,
+            18.784259796142578,
+            14.941240310668945,
+            12.54109001159668,
+            13.086549758911133,
+            12.694319725036621,
+            9.276439666748047,
+            9.68533992767334,
+            10.1283597946167
+          ]
+        },
+        "spectral_centroid": {
+          "mean": 1895.39033,
+          "std": 1187.37292
+        },
+        "pitch": {
+          "mean_hz": 175.794,
+          "min_hz": 69.697,
+          "max_hz": 300.529
+        },
+        "advanced_acoustic_features": {
+          "formants": {
+            "method": "lpc_roots",
+            "available": true,
+            "note": "Approximate LPC-based formant estimates. More reliable formants would require Praat/parselmouth.",
+            "F1_hz": {
+              "mean": 744.190918,
+              "median": 579.071924,
+              "std": 522.79498,
+              "min": 92.99394,
+              "max": 3464.327898
+            },
+            "F2_hz": {
+              "mean": 2281.572208,
+              "median": 2198.964623,
+              "std": 721.576747,
+              "min": 931.82756,
+              "max": 4598.953278
+            },
+            "F3_hz": {
+              "mean": 3593.7673,
+              "median": 3522.44797,
+              "std": 610.472386,
+              "min": 2341.92714,
+              "max": 5484.422326
+            },
+            "frames_used": 322
+          },
+          "jitter_shimmer": {
+            "available": true,
+            "method": "frame_level_f0_rms_proxy",
+            "note": "Approximate jitter/shimmer from frame-level f0 and RMS, not cycle-exact Praat measurements.",
+            "voiced_frame_count": 240,
+            "jitter_local": 0.051936,
+            "jitter_local_percent": 5.193612,
+            "shimmer_local": 0.161003,
+            "shimmer_local_percent": 16.100269
+          },
+          "harmonic_to_noise_ratio": {
+            "available": true,
+            "method": "harmonic_residual_energy_ratio",
+            "hnr_db": -1.631632,
+            "harmonic_energy": 57.227176,
+            "noise_residual_energy": 83.323117,
+            "note": "Approximate HNR proxy based on harmonic separation, not Praat HNR."
+          },
+          "speaking_rate": {
+            "available": true,
+            "method": "rms_envelope_peak_proxy",
+            "note": "Speaking rate proxy from syllable-like RMS peaks. True speaking rate requires transcript or syllable labels.",
+            "estimated_syllable_nuclei_count": 41,
+            "estimated_syllable_rate_per_second": 3.937764,
+            "estimated_syllable_rate_per_minute": 236.265847
+          },
+          "voice_onset_time": {
+            "available": true,
+            "method": "energy_onset_to_first_voiced_frame_proxy",
+            "note": "This is not true phonetic VOT. True VOT needs stop-consonant boundaries or forced alignment.",
+            "estimated_vot_ms": {
+              "mean": 0.0,
+              "median": 0.0,
+              "std": 0.0,
+              "min": 0.0,
+              "max": 0.0
+            },
+            "events_used": 1
+          }
+        }
+      }
+    }
+  },
+  "warnings": [],
+  "privacy_status": {
+    "raw_audio_stored": false,
+    "temporary_files_deleted": true,
+    "output_contains_raw_audio": false
+  }
+}

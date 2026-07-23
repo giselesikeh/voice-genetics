@@ -47,3 +47,10 @@ temp/
 # Local Streamlit secrets
 frontend/.streamlit/secrets.toml
 .streamlit/secrets.toml
+
+.venv/
+.venv-*/
+.pip-cache/
+.runtime-tmp/
+__pycache__/
+*.pyc
